@@ -16,9 +16,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 public class AppConfig {
 
-    @Autowired
-    private CustomUserDetailServiceImpl customUserDetailService;
-
+    //@Autowired
+    //private CustomUserDetailServiceImpl customUserDetailService;
+    /*
     @Bean
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
@@ -41,4 +41,6 @@ public class AppConfig {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+    
+     */
 }

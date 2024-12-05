@@ -1,5 +1,6 @@
 server:
   port: 8080
+
 spring:
   application:
     name: authorization-service
@@ -15,3 +16,10 @@ spring:
   security:
     user:
       password: Test12345_
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
+  instance:
+    preferIpAddress: true

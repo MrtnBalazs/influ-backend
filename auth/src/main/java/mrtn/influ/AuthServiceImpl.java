@@ -15,11 +15,11 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class AuthServiceImpl implements AuthService{
-    @Autowired
+    //@Autowired
     private AuthenticationManager authenticationManager;
-    @Autowired
+    //@Autowired
     private UserRepository userRepository;
-    @Autowired
+    //@Autowired
     private JwtTokenProvider jwtTokenProvider;
 
     @Override
