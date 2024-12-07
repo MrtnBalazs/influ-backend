@@ -1,0 +1,1 @@
+https://www.geeksforgeeks.org/api-gateway-authentication-and-authorization-in-spring-boot/

@@ -1,2 +1,4 @@
 .idea
 /auth/target
+/gateway/target
+/eureka/target
