@@ -10,9 +10,10 @@
 
     <modules>
         <module>auth</module>
-        <module>Eureka</module>
         <module>eureka</module>
-        <module>gateway</module>
+        <module>testService</module>
+        <module>gateway-application</module>
+        <module>auth-service</module>
     </modules>
 
     <properties>
