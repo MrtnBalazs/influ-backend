@@ -1,4 +1,6 @@
 .idea
 /auth/target
-/gateway/target
+/auth-service/target
+/gateway-application/target
 /eureka/target
+/testService/target

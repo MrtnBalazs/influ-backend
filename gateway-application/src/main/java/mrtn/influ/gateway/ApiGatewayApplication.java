@@ -22,7 +22,7 @@ public class ApiGatewayApplication {
                 .route("test", r -> r.path("/test/")
                         .uri("lb://TEST-SERVICE"))
                 .route("auth", r -> r.path("/auth/**")
-                        .uri("lb://TEST-SERVICE"))
+                        .uri("lb://AUTH-SERVICE"))
                 .build();
     }
 }
