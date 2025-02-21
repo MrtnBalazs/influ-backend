@@ -1,16 +1,13 @@
 package mrtn.influ.auth.endpoint;
 
-import mrtn.influ.auth.dto.AuthenticationRequest;
-import mrtn.influ.auth.dto.AuthenticationResponse;
+import mrtn.influ.auth.dto.*;
 import mrtn.influ.auth.model.User;
 import mrtn.influ.auth.service.JwtService;
 import mrtn.influ.auth.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
@@ -22,17 +19,25 @@ public class AuthController {
     private UserService userService;
 
     @PostMapping("/login")
-    public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
-        final String jwt = jwtService.createJwtToken(authenticationRequest);
-        return ResponseEntity.ok(new AuthenticationResponse(jwt));
+    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) throws Exception {
+        final String jwt = jwtService.createJwtToken(loginRequest);
+        return ResponseEntity.ok(new LoginResponse(jwt));
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<?> registerUser(@RequestBody User user) {
-        if (userService.findByUsername(user.getUsername()) != null) {
-            return ResponseEntity.badRequest().body("Username is already taken.");
+    public ResponseEntity<RegisterResponse> register(@RequestBody RegisterRequest registerRequest) {
+        if (userService.findByUsername(registerRequest.username()) != null) {
+            return ResponseEntity.badRequest().body(new RegisterResponse("Bad request"));
         }
-        userService.save(user);
-        return ResponseEntity.ok("User registered successfully.");
+        userService.save(new User(registerRequest.username(), registerRequest.password(), "ROLE"));
+        return ResponseEntity.ok(new RegisterResponse("TODO"));
+    }
+
+    @GetMapping("/verify")
+    public ResponseEntity<?> verify(@RequestHeader("jwt") String token, @RequestHeader("username") String username) {
+         if(jwtService.validateToken(token, username))
+             return ResponseEntity.ok().build();
+         else
+             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
 }

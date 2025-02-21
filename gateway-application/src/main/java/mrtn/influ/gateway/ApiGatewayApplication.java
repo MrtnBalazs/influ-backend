@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 public class ApiGatewayApplication {
-    private static final Logger logger = LoggerFactory.getLogger(ApiGatewayApplication.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ApiGatewayApplication.class);
 
     public static void main(String[] args) {
         SpringApplication.run(ApiGatewayApplication.class, args);

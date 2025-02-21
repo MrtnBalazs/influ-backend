@@ -1,6 +1,6 @@
 package mrtn.influ.auth.service;
 
-import mrtn.influ.auth.dto.AuthenticationRequest;
+import mrtn.influ.auth.dto.LoginRequest;
 import mrtn.influ.auth.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -19,11 +19,15 @@ public class JwtService {
     @Autowired
     private JwtUtil jwtUtil;
 
-    public String createJwtToken(AuthenticationRequest authenticationRequest) throws Exception {
+    public String createJwtToken(LoginRequest loginRequest) throws Exception {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-                authenticationRequest.getUsername(), authenticationRequest.getPassword()));
+                loginRequest.username(), loginRequest.password()));
 
-        final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
+        final UserDetails userDetails = userDetailsService.loadUserByUsername(loginRequest.username());
         return jwtUtil.generateToken(userDetails);
+    }
+
+    public boolean validateToken(String token, String username) {
+        return jwtUtil.validateToken(token, username);
     }
 }
