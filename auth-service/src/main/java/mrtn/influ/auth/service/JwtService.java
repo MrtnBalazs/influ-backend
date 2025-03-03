@@ -19,7 +19,7 @@ public class JwtService {
     @Autowired
     private JwtUtil jwtUtil;
 
-    public String createJwtToken(LoginRequest loginRequest) throws Exception {
+    public String createJwtToken(LoginRequest loginRequest) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 loginRequest.username(), loginRequest.password()));
 

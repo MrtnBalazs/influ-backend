@@ -2,6 +2,7 @@ package mrtn.influ.auth.util;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.security.Keys;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,7 +19,8 @@ public class JwtUtil {
     private static final Logger LOGGER = LoggerFactory.getLogger(JwtUtil.class);
     //@Value("${jwt.secret}")
     //private char[] secret;
-    private SecretKey secret = Jwts.SIG.HS256.key().build();
+    private final SecretKey secret = Keys.hmacShaKeyFor("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa".getBytes());
+    //private final SecretKey secret = Jwts.SIG.HS256.key().build();
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
