@@ -2,10 +2,8 @@ package mrtn.influ.auth;
 
 import mrtn.influ.auth.dto.LoginRequest;
 import mrtn.influ.auth.model.User;
-import mrtn.influ.auth.repository.UserRepository;
 import mrtn.influ.auth.service.JwtService;
 import mrtn.influ.auth.service.UserService;
-import mrtn.influ.auth.util.JwtUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +27,8 @@ public class AuthServiceApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        userService.save(new User("username", "password", "ROLE"));
-        LOGGER.info(jwtService.createJwtToken(new LoginRequest("username", "password")));
+        userService.save(new User("username", "password", "USER"));
+        userService.save(new User("admin", "admin", "ADMIN"));
+        LOGGER.info(jwtService.createAuthToken(new LoginRequest("username", "password")));
     }
 }

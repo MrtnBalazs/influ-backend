@@ -17,14 +17,12 @@ import java.util.function.Function;
 @Component
 public class JwtUtil {
     private static final Logger LOGGER = LoggerFactory.getLogger(JwtUtil.class);
-    //@Value("${jwt.secret}")
+    //@Value("${authToken.secret}")
     //private char[] secret;
-    private final SecretKey secret = Keys.hmacShaKeyFor("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa".getBytes());
     //private final SecretKey secret = Jwts.SIG.HS256.key().build();
-
-    public String extractUsername(String token) {
-        return extractClaim(token, Claims::getSubject);
-    }
+    private final String ISSUER = "INFLU_AUTH_SERVICE";
+    // TODO generate something
+    private final SecretKey SECRET = Keys.hmacShaKeyFor("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa".getBytes());
 
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = extractAllClaims(token);
@@ -32,13 +30,12 @@ public class JwtUtil {
     }
 
     public Claims extractAllClaims(String token) {
-        return Jwts.parser().verifyWith(secret).build().parseSignedClaims(token).getPayload();
+        return Jwts.parser().verifyWith(SECRET).build().parseSignedClaims(token).getPayload();
     }
 
-    public Boolean validateToken(String token, String username) {
+    public Boolean validateToken(String token) {
         try {
-            final String usernameFromToken = extractUsername(token);
-            return (usernameFromToken.equals(username) && !isTokenExpired(token));
+            return !isTokenExpired(token) && validateIssuer(token);
         } catch (Exception e) {
             LOGGER.error("Token validation error: ", e);
             return false;
@@ -47,6 +44,13 @@ public class JwtUtil {
 
     private Boolean isTokenExpired(String token) {
         return extractExpiration(token).before(new Date());
+    }
+    private Boolean validateIssuer(String token) {
+        return extractIssuer(token).equals(ISSUER);
+    }
+
+    public String extractIssuer(String token) {
+        return extractClaim(token, Claims::getIssuer);
     }
 
     public Date extractExpiration(String token) {
@@ -61,10 +65,11 @@ public class JwtUtil {
     private String createToken(Map<String, Object> claims, String subject) {
         return Jwts.builder()
                 .subject(subject)
+                .issuer(ISSUER)
                 .claims(claims)
                 .expiration(new Date(System.currentTimeMillis() + 5000 * 60 * 60 * 10))
                 .issuedAt(new Date(System.currentTimeMillis()))
-                .signWith(secret)
+                .signWith(SECRET)
                 .compact();
     }
 }

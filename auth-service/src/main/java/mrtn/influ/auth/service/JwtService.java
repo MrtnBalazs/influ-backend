@@ -19,7 +19,7 @@ public class JwtService {
     @Autowired
     private JwtUtil jwtUtil;
 
-    public String createJwtToken(LoginRequest loginRequest) {
+    public String createAuthToken(LoginRequest loginRequest) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 loginRequest.username(), loginRequest.password()));
 
@@ -27,7 +27,7 @@ public class JwtService {
         return jwtUtil.generateToken(userDetails);
     }
 
-    public boolean validateToken(String token, String username) {
-        return jwtUtil.validateToken(token, username);
+    public boolean validateToken(String token) {
+        return jwtUtil.validateToken(token);
     }
 }

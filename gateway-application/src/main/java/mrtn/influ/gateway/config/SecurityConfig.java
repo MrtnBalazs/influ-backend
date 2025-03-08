@@ -1,5 +1,7 @@
 package mrtn.influ.gateway.config;
 
+import mrtn.influ.gateway.service.AuthService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
@@ -12,25 +14,27 @@ import org.springframework.security.web.server.util.matcher.PathPatternParserSer
 @Configuration
 public class SecurityConfig {
 
+    @Autowired
+    private AuthService authService;
+
     @Order(Ordered.HIGHEST_PRECEDENCE)
     @Bean
-    SecurityWebFilterChain securedEndpointsFilterChain(ServerHttpSecurity http) {
+    public SecurityWebFilterChain unsecuredEndpointsFilterChain(ServerHttpSecurity http) {
         http
-            .securityMatcher(new PathPatternParserServerWebExchangeMatcher("/admin/**")) // Apply only to /admin/**
-            .addFilterAt(new JwtAuthenticationWebFilter(), SecurityWebFiltersOrder.AUTHENTICATION);
-
+            .csrf(ServerHttpSecurity.CsrfSpec::disable) // TODO check if it's necessary
+            .securityMatcher(new PathPatternParserServerWebExchangeMatcher("/auth/**"));
         return http.build();
     }
 
     @Bean
-    SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
+    public SecurityWebFilterChain securedEndpointsFilterChain(ServerHttpSecurity http) {
         http
-            .csrf(ServerHttpSecurity.CsrfSpec::disable)
+            .csrf(ServerHttpSecurity.CsrfSpec::disable) // TODO check if it's necessary
             .authorizeExchange((authorize) -> authorize
-                    .pathMatchers("/auth/**").permitAll() // Public access
-                    .anyExchange().denyAll() // Block everything else
-            );
-
+                    .pathMatchers("/api/v1/test/**").permitAll()
+                    .anyExchange().denyAll()
+            )
+            .addFilterAt(new JwtAuthenticationWebFilter(authService), SecurityWebFiltersOrder.AUTHENTICATION);
         return http.build();
     }
 }

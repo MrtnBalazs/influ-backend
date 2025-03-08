@@ -9,7 +9,6 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>auth</module>
         <module>eureka</module>
         <module>testService</module>
         <module>gateway-application</module>

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/admin")
+@RequestMapping("/auth/admin") // TODO make it available only with ADMIN role
 public class AdminController {
 
     @Autowired
@@ -20,7 +20,6 @@ public class AdminController {
 
     @GetMapping("/users")
     public ResponseEntity<List<User>> getUsersWithPasswords() {
-        System.out.println("ok");
         return new ResponseEntity<>(userRepository.findAll(), HttpStatus.OK);
     }
 }
