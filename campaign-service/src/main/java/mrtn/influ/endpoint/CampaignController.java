@@ -1,7 +1,6 @@
 package mrtn.influ.endpoint;
 
 
-import jakarta.ws.rs.HeaderParam;
 import mrtn.influ.dao.CampaignRepository;
 import mrtn.influ.dto.GetCampaignForUserResponse;
 import mrtn.influ.dto.GetCampaignResponse;
@@ -38,10 +37,18 @@ public class CampaignController {
     }
 
     @GetMapping("/user")
-    public ResponseEntity<GetCampaignForUserResponse> getCampaignForUser(@RequestHeader("X-User-Id") String userId) {
+    public ResponseEntity<GetCampaignForUserResponse> getCampaignsForUser(@RequestHeader("X-User-Id") String userId) {
         if(userId == null)
             throw new RuntimeException("Missing user id!");
         List<CampaignEntity> campaignEntity = campaignRepository.findAllByUserId(userId);
+        return new ResponseEntity<>(new GetCampaignForUserResponse(campaignMapper.mapCampaign(campaignEntity)), HttpStatus.OK);
+    }
+
+    @GetMapping("/saved")
+    public ResponseEntity<GetCampaignForUserResponse> getSavedCampaignsForUser(@RequestHeader("X-User-Id") String userId) {
+        if(userId == null)
+            throw new RuntimeException("Missing user id!");
+        List<CampaignEntity> campaignEntity = campaignRepository.findFavoritesByUserId(userId);
         return new ResponseEntity<>(new GetCampaignForUserResponse(campaignMapper.mapCampaign(campaignEntity)), HttpStatus.OK);
     }
 

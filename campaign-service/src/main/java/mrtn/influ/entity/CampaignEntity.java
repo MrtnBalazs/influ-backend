@@ -2,6 +2,7 @@ package mrtn.influ.entity;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -26,13 +27,10 @@ public class CampaignEntity {
     @OneToMany(mappedBy = "campaign", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<PitchEntity> pitches;
 
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
+    @ElementCollection(targetClass = String.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "favoritedBys", joinColumns = @JoinColumn(name = "campaignId"))
+    @Column
+    private List<String> favoritedBy;
 
     public Long getId() {
         return id;
@@ -40,6 +38,14 @@ public class CampaignEntity {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getTitle() {
@@ -75,6 +81,8 @@ public class CampaignEntity {
     }
 
     public List<PitchEntity> getPitches() {
+        if(Objects.isNull(pitches))
+            pitches = new ArrayList<>();
         return pitches;
     }
 
@@ -82,16 +90,26 @@ public class CampaignEntity {
         this.pitches = pitches;
     }
 
+    public List<String> getFavoritedBy() {
+        if(Objects.isNull(favoritedBy))
+            favoritedBy = new ArrayList<>();
+        return favoritedBy;
+    }
+
+    public void setFavoritedBy(List<String> favoritedBy) {
+        this.favoritedBy = favoritedBy;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         CampaignEntity campaign = (CampaignEntity) o;
-        return Objects.equals(id, campaign.id) && Objects.equals(userId, campaign.userId) && Objects.equals(title, campaign.title) && Objects.equals(description, campaign.description) && Objects.equals(minFee, campaign.minFee) && Objects.equals(maxFee, campaign.maxFee) && Objects.equals(pitches, campaign.pitches);
+        return Objects.equals(id, campaign.id) && Objects.equals(userId, campaign.userId) && Objects.equals(title, campaign.title) && Objects.equals(description, campaign.description) && Objects.equals(minFee, campaign.minFee) && Objects.equals(maxFee, campaign.maxFee) && Objects.equals(pitches, campaign.pitches) && Objects.equals(favoritedBy, campaign.favoritedBy);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, userId, title, description, minFee, maxFee, pitches);
+        return Objects.hash(id, userId, title, description, minFee, maxFee, pitches, favoritedBy);
     }
 
     @Override
@@ -104,6 +122,7 @@ public class CampaignEntity {
                 ", minFee=" + minFee +
                 ", maxFee=" + maxFee +
                 ", pitches=" + pitches +
+                ", favoritedBy=" + favoritedBy +
                 '}';
     }
 }

@@ -48,6 +48,7 @@ public class CampaignServiceApp implements CommandLineRunner {
         campaign3.setUserId("username2");
         campaign3.setMaxFee(5);
         campaign3.setMinFee(1);
+        campaign3.getFavoritedBy().add("username");
 
         campaignRepository.save(campaign);
         campaignRepository.save(campaign2);
