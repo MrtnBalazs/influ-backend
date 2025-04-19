@@ -32,6 +32,7 @@ public class SecurityConfig {
             .csrf(ServerHttpSecurity.CsrfSpec::disable) // TODO check if it's necessary
             .authorizeExchange((authorize) -> authorize
                     .pathMatchers("/api/v1/test/**").permitAll()
+                    .pathMatchers("/api/campaigns/**").permitAll()
                     .anyExchange().denyAll()
             )
             .addFilterAt(new JwtAuthenticationWebFilter(authService), SecurityWebFiltersOrder.AUTHENTICATION);

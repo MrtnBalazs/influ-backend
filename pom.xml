@@ -13,6 +13,7 @@
         <module>testService</module>
         <module>gateway-application</module>
         <module>auth-service</module>
+        <module>campaign-service</module>
     </modules>
 
     <properties>

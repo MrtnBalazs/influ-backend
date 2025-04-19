@@ -14,19 +14,20 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class AuthService {
     private static final Logger LOGGER = LoggerFactory.getLogger(AuthService.class);
-    public static final String TOKEN_HEADER = "AuthToken";
+    public static final String AUTH_TOKEN_HEADER = "X-Auth-Token";
 
     @Value("${auth.service.verify.endpoint}")
     private String tokenVerifyEndpointUrl;
 
-    public void validateToken(String token) {
+    public String validateToken(String token) {
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
-        headers.set(TOKEN_HEADER, token);
+        headers.set(AUTH_TOKEN_HEADER, token);
         HttpEntity<String> entity = new HttpEntity<>(headers);
-        ResponseEntity<Void> response = restTemplate.exchange(tokenVerifyEndpointUrl, HttpMethod.GET, entity, Void.class);
-        LOGGER.debug("Token validation response HTTP status code: {}", response.getStatusCode());
+        ResponseEntity<String> response = restTemplate.exchange(tokenVerifyEndpointUrl, HttpMethod.GET, entity, String.class);
+        LOGGER.debug("Token validation response HTTP status code: {}, userId: {}", response.getStatusCode(), response.getBody());
         if(!response.getStatusCode().is2xxSuccessful())
-            throw new GatewayBusinessException("Token invalid!");
+            throw new GatewayBusinessException("Problems with token validation!");
+        return response.getBody();
     }
 }

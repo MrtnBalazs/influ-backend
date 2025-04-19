@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200") // TODO In development it is not needed
 @RequestMapping("/auth")
 public class AuthController {
     @Autowired
@@ -24,9 +25,8 @@ public class AuthController {
     @Autowired
     private UserRepository userRepository;
 
-    @GetMapping("/users")
+    @GetMapping("/users") // TODO testing purposes only remove or ADMIN permission
     public ResponseEntity<List<User>> getUsersWithPasswords() {
-        System.out.println("ok");
         return new ResponseEntity<>(userRepository.findAll(), HttpStatus.OK);
     }
 
@@ -46,9 +46,9 @@ public class AuthController {
     }
 
     @GetMapping("/verify")
-    public ResponseEntity<?> verify(@RequestHeader("AuthToken") String token) {
+    public ResponseEntity<String> verify(@RequestHeader("X-Auth-Token") String token) {
          if(jwtService.validateToken(token))
-             return ResponseEntity.ok().build();
+             return ResponseEntity.ok().body(jwtService.getSubjectFromToken(token));
          else
              return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }

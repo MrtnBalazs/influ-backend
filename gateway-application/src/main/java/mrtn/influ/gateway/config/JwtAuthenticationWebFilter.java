@@ -15,6 +15,7 @@ import java.util.Objects;
 
 public class JwtAuthenticationWebFilter implements WebFilter {
     private static final Logger LOGGER = LoggerFactory.getLogger(JwtAuthenticationWebFilter.class);
+    public static final String USER_ID_HEADER = "X-User-Id";
 
     private final AuthService authService;
 
@@ -28,17 +29,16 @@ public class JwtAuthenticationWebFilter implements WebFilter {
         LOGGER.debug("Auth header: {}", authHeader);
 
         validateAuthHeader(authHeader);
-        authService.validateToken(authHeader.substring(7));
+        String userId = authService.validateToken(authHeader.substring(7));
+        if(Objects.nonNull(userId))
+            exchange.getRequest().mutate().header(USER_ID_HEADER, userId);
 
         return chain.filter(exchange);
     }
 
     private void validateAuthHeader(String authHeader) {
         if (Objects.isNull(authHeader) || !authHeader.startsWith("Bearer ")) {
-            throw new GatewayBusinessException("Missing auth token!");
+            throw new GatewayBusinessException("Missing auth token!"); // TODO Global spring gateway exception handler
         }
     }
-
-
-
 }

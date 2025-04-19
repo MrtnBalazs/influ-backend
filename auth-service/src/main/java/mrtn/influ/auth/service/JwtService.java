@@ -30,4 +30,8 @@ public class JwtService {
     public boolean validateToken(String token) {
         return jwtUtil.validateToken(token);
     }
+
+    public String getSubjectFromToken(String token) {
+        return jwtUtil.extractSubject(token);
+    }
 }
