@@ -15,4 +15,11 @@ public class GetCampaignResponse {
     public void setCampaign(CampaignDto campaign) {
         this.campaign = campaign;
     }
+
+    @Override
+    public String toString() {
+        return "GetCampaignResponse{" +
+                "campaign=" + campaign +
+                '}';
+    }
 }

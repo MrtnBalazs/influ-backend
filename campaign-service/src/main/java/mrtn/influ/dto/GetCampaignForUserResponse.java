@@ -19,4 +19,11 @@ public class GetCampaignForUserResponse {
     public void setCampaigns(List<CampaignDto> campaigns) {
         this.campaigns = campaigns;
     }
+
+    @Override
+    public String toString() {
+        return "GetCampaignForUserResponse{" +
+                "campaigns=" + campaigns +
+                '}';
+    }
 }

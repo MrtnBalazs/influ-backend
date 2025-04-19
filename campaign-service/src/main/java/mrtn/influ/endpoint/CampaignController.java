@@ -2,6 +2,7 @@ package mrtn.influ.endpoint;
 
 
 import mrtn.influ.dao.CampaignRepository;
+import mrtn.influ.dto.CreateCampaignRequest;
 import mrtn.influ.dto.GetCampaignForUserResponse;
 import mrtn.influ.dto.GetCampaignResponse;
 import mrtn.influ.entity.CampaignEntity;
@@ -50,6 +51,17 @@ public class CampaignController {
             throw new RuntimeException("Missing user id!");
         List<CampaignEntity> campaignEntity = campaignRepository.findFavoritesByUserId(userId);
         return new ResponseEntity<>(new GetCampaignForUserResponse(campaignMapper.mapCampaign(campaignEntity)), HttpStatus.OK);
+    }
+
+    @PostMapping("/create")
+    public ResponseEntity<Void> createCampaign(@RequestBody CreateCampaignRequest createCampaignRequest) {
+        campaignRepository.save(new CampaignEntity(
+                createCampaignRequest.getUserId(),
+                createCampaignRequest.getTitle(),
+                createCampaignRequest.getDescription(),
+                createCampaignRequest.getMaxFee(),
+                createCampaignRequest.getMinFee()));
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
 }

@@ -32,6 +32,16 @@ public class CampaignEntity {
     @Column
     private List<String> favoritedBy;
 
+    public CampaignEntity() {}
+
+    public CampaignEntity(String userId, String title, String description, Integer minFee, Integer maxFee) {
+        this.userId = userId;
+        this.title = title;
+        this.description = description;
+        this.minFee = minFee;
+        this.maxFee = maxFee;
+    }
+
     public Long getId() {
         return id;
     }
