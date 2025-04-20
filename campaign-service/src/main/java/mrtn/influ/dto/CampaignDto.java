@@ -9,5 +9,6 @@ public record CampaignDto (
     String description,
     Integer maxFee,
     Integer minFee,
+    Boolean favorited,
     List<PitchDto> pitches
 ){}

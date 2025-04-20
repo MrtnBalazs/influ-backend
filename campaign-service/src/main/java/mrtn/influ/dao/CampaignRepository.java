@@ -13,5 +13,5 @@ public interface CampaignRepository extends ListCrudRepository<CampaignEntity, L
     List<CampaignEntity> findAllByUserId(String userId);
 
     @Query(value = "select * from CAMPAIGN c inner join FAVORITED_BYS f on f.CAMPAIGN_ID=c.ID where f.FAVORITED_BY = :userId", nativeQuery = true)
-    List<CampaignEntity> findFavoritesByUserId(@Param("userId") String userId);
+    List<CampaignEntity> findSavedByUserId(@Param("userId") String userId);
 }

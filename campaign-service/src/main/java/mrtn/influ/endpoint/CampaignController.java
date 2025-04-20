@@ -1,67 +1,47 @@
 package mrtn.influ.endpoint;
 
 
-import mrtn.influ.dao.CampaignRepository;
+import mrtn.influ.business.service.CampaignService;
+import mrtn.influ.dto.CampaignDto;
 import mrtn.influ.dto.CreateCampaignRequest;
 import mrtn.influ.dto.GetCampaignForUserResponse;
 import mrtn.influ.dto.GetCampaignResponse;
-import mrtn.influ.entity.CampaignEntity;
-import mrtn.influ.mapper.CampaignMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/campaigns")
 public class CampaignController {
+    private static final String USER_ID_HEADER = "X-User-Id";
 
     @Autowired
-    private CampaignRepository campaignRepository;
-    @Autowired
-    private CampaignMapper campaignMapper;
-
-    @GetMapping("/test")
-    public ResponseEntity<Void> getCampaign() {
-        return ResponseEntity.ok().build();
-    }
+    private CampaignService campaignService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<GetCampaignResponse> getCampaignById(@PathVariable(name = "id") Long id) {
-        Optional<CampaignEntity> optionalCampaignEntity = campaignRepository.findById(id);
-        return optionalCampaignEntity
-                .map(campaignEntity -> ResponseEntity.ok(new GetCampaignResponse(campaignMapper.mapCampaign(campaignEntity))))
-                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+    public ResponseEntity<GetCampaignResponse> getCampaign(@PathVariable(name = "id") Long id, @RequestHeader(name = USER_ID_HEADER, required = false) String userId) {
+        CampaignDto campaignDto = campaignService.getCampaignById(id, userId);
+        return ResponseEntity.ok(new GetCampaignResponse(campaignDto));
     }
 
     @GetMapping("/user")
-    public ResponseEntity<GetCampaignForUserResponse> getCampaignsForUser(@RequestHeader("X-User-Id") String userId) {
-        if(userId == null)
-            throw new RuntimeException("Missing user id!");
-        List<CampaignEntity> campaignEntity = campaignRepository.findAllByUserId(userId);
-        return new ResponseEntity<>(new GetCampaignForUserResponse(campaignMapper.mapCampaign(campaignEntity)), HttpStatus.OK);
+    public ResponseEntity<GetCampaignForUserResponse> getCampaignsForUser(@RequestHeader(USER_ID_HEADER) String userId) {
+        List<CampaignDto> campaignDtos = campaignService.getCampaignsForUser(userId);
+        return new ResponseEntity<>(new GetCampaignForUserResponse(campaignDtos), HttpStatus.OK);
     }
 
     @GetMapping("/saved")
-    public ResponseEntity<GetCampaignForUserResponse> getSavedCampaignsForUser(@RequestHeader("X-User-Id") String userId) {
-        if(userId == null)
-            throw new RuntimeException("Missing user id!");
-        List<CampaignEntity> campaignEntity = campaignRepository.findFavoritesByUserId(userId);
-        return new ResponseEntity<>(new GetCampaignForUserResponse(campaignMapper.mapCampaign(campaignEntity)), HttpStatus.OK);
+    public ResponseEntity<GetCampaignForUserResponse> getSavedCampaigns(@RequestHeader(USER_ID_HEADER) String userId) {
+        List<CampaignDto> campaignDtos = campaignService.getSavedCampaignsForUser(userId);
+        return new ResponseEntity<>(new GetCampaignForUserResponse(campaignDtos), HttpStatus.OK);
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Void> createCampaign(@RequestBody CreateCampaignRequest createCampaignRequest) {
-        campaignRepository.save(new CampaignEntity(
-                createCampaignRequest.getUserId(),
-                createCampaignRequest.getTitle(),
-                createCampaignRequest.getDescription(),
-                createCampaignRequest.getMaxFee(),
-                createCampaignRequest.getMinFee()));
+    public ResponseEntity<Void> createCampaign(@RequestBody CreateCampaignRequest createCampaignRequest, @RequestHeader(USER_ID_HEADER) String userId) {
+        campaignService.saveCampaign(createCampaignRequest, userId);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
-
 }

@@ -1,15 +1,10 @@
 package mrtn.influ.dto;
 
 public class CreateCampaignRequest {
-    private String userId;
     private String title;
     private String description;
     private Integer maxFee;
     private Integer minFee;
-
-    public String getUserId() {
-        return userId;
-    }
 
     public String getTitle() {
         return title;
@@ -30,7 +25,6 @@ public class CreateCampaignRequest {
     @Override
     public String toString() {
         return "CreateCampaignRequest{" +
-                "userId='" + userId + '\'' +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
                 ", maxFee=" + maxFee +
