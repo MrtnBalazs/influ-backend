@@ -18,13 +18,22 @@ public class PitchEntity {
     private CampaignEntity campaign;
 
     @Column
-    private Long creatorId;
+    private String creatorId;
 
     @Column
     private String title;
 
     @Column
     private String text;
+
+    public PitchEntity() {}
+
+    public PitchEntity(CampaignEntity campaign, String creatorId, String title, String text) {
+        this.campaign = campaign;
+        this.creatorId = creatorId;
+        this.title = title;
+        this.text = text;
+    }
 
     public Long getId() {
         return id;
@@ -42,11 +51,11 @@ public class PitchEntity {
         this.campaign = campaign;
     }
 
-    public Long getCreatorId() {
+    public String getCreatorId() {
         return creatorId;
     }
 
-    public void setCreatorId(Long creatorId) {
+    public void setCreatorId(String creatorId) {
         this.creatorId = creatorId;
     }
 
@@ -70,7 +79,7 @@ public class PitchEntity {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         PitchEntity that = (PitchEntity) o;
-        return id == that.id && Objects.equals(campaign, that.campaign) && Objects.equals(creatorId, that.creatorId) && Objects.equals(title, that.title) && Objects.equals(text, that.text);
+        return Objects.equals(id, that.id) && Objects.equals(campaign, that.campaign) && Objects.equals(creatorId, that.creatorId) && Objects.equals(title, that.title) && Objects.equals(text, that.text);
     }
 
     @Override

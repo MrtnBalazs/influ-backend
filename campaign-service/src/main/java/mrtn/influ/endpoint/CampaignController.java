@@ -16,7 +16,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/campaigns")
 public class CampaignController {
-    private static final String USER_ID_HEADER = "X-User-Id";
+    public static final String USER_ID_HEADER = "X-User-Id";
 
     @Autowired
     private CampaignService campaignService;

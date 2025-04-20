@@ -17,8 +17,6 @@ public class ApiGatewayApplication {
         return builder.routes()
                 .route("test", r -> r.path("/api/v1/test/**")
                         .uri("lb://TEST-SERVICE"))
-                //.route("campaign", r -> r.path("/api/v1/campaigns/**")
-                //        .uri("lb://CAMPAIGN-SERVICE"))
                 .route("campaign", r -> r
                         .path("/api/campaigns/**")
                         .filters(f -> f.rewritePath("/api/campaigns/(?<segment>.*)", "/api/v1/campaigns/${segment}"))

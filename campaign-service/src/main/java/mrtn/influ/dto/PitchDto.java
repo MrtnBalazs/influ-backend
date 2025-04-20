@@ -2,7 +2,7 @@ package mrtn.influ.dto;
 
 public record PitchDto (
     Long id,
-    Long creatorId,
+    String creatorId,
     String title,
     String text
 ) {}

@@ -30,7 +30,7 @@ public class CampaignServiceApp implements CommandLineRunner {
         campaign.setPitches(new ArrayList<>());
         PitchEntity pitchEntity = new PitchEntity();
         pitchEntity.setCampaign(campaign);
-        pitchEntity.setCreatorId(2L);
+        pitchEntity.setCreatorId("username1");
         pitchEntity.setText("Test pitch text");
         pitchEntity.setTitle("Test pitch title");
         campaign.getPitches().add(pitchEntity);
