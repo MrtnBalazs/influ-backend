@@ -19,6 +19,10 @@ public class CampaignService {
     @Autowired
     private CampaignMapper campaignMapper;
 
+    public List<CampaignDto> getAllCampaign() {
+        return campaignRepository.findAll().stream().map(campaignEntity -> campaignMapper.mapCampaign(campaignEntity, null)).toList();
+    }
+
     public CampaignDto getCampaignById(Long id, String userId) {
         CampaignEntity campaignEntity = campaignRepository.findById(id).orElseThrow(() -> new RuntimeException("Could not find campaign for id: %d".formatted(id)));
         return campaignMapper.mapCampaign(campaignEntity, isFavorited(campaignEntity, userId));

@@ -2,10 +2,7 @@ package mrtn.influ.endpoint;
 
 
 import mrtn.influ.business.service.CampaignService;
-import mrtn.influ.dto.CampaignDto;
-import mrtn.influ.dto.CreateCampaignRequest;
-import mrtn.influ.dto.GetCampaignForUserResponse;
-import mrtn.influ.dto.GetCampaignResponse;
+import mrtn.influ.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +17,11 @@ public class CampaignController {
 
     @Autowired
     private CampaignService campaignService;
+
+    @GetMapping()
+    public ResponseEntity<GetAllCampaignsResponse> getAllCampaigns() {
+        return ResponseEntity.ok(new GetAllCampaignsResponse(campaignService.getAllCampaign()));
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<GetCampaignResponse> getCampaign(@PathVariable(name = "id") Long id, @RequestHeader(name = USER_ID_HEADER, required = false) String userId) {
