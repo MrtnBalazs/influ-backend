@@ -43,8 +43,8 @@ public class CampaignServiceApp implements CommandLineRunner {
         campaign2.setMinFee(1);
 
         CampaignEntity campaign3 = new CampaignEntity();
-        campaign3.setTitle("Test campaign2");
-        campaign3.setDescription("Test description2");
+        campaign3.setTitle("Test campaign3");
+        campaign3.setDescription("Test description3");
         campaign3.setUserId("username2");
         campaign3.setMaxFee(5);
         campaign3.setMinFee(1);

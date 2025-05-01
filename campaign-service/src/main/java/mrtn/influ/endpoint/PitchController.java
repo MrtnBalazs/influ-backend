@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import static mrtn.influ.endpoint.CampaignController.USER_ID_HEADER;
 
+@CrossOrigin(origins = "http://localhost:4200") // TODO only for testing without gateway
 @Controller
 @RequestMapping("/api/v1/campaigns/pitches")
 public class PitchController {
