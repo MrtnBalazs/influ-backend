@@ -1,6 +1,7 @@
 package mrtn.influ.auth;
 
 import mrtn.influ.auth.dto.LoginRequest;
+import mrtn.influ.auth.dto.RegisterRequest;
 import mrtn.influ.auth.model.User;
 import mrtn.influ.auth.service.JwtService;
 import mrtn.influ.auth.service.UserService;
@@ -27,8 +28,8 @@ public class AuthServiceApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        userService.save(new User("username", "password", "USER"));
-        userService.save(new User("admin", "admin", "ADMIN"));
-        LOGGER.info(jwtService.createAuthToken(new LoginRequest("username", "password")));
+        userService.registerUser(RegisterRequest.builder().email("email").password("password").build());
+        userService.registerUser(RegisterRequest.builder().email("admin").password("admin").build());
+        LOGGER.info(jwtService.createAuthToken(new LoginRequest("email", "password")));
     }
 }

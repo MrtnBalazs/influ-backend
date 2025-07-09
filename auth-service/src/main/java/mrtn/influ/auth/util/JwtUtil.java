@@ -33,7 +33,7 @@ public class JwtUtil {
         return Jwts.parser().verifyWith(SECRET).build().parseSignedClaims(token).getPayload();
     }
 
-    public Boolean validateToken(String token) {
+    public Boolean  validateToken(String token) {
         try {
             return !isTokenExpired(token) && validateIssuer(token);
         } catch (Exception e) {
