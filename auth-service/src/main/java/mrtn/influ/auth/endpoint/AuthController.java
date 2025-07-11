@@ -9,12 +9,12 @@ import mrtn.influ.auth.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
-@CrossOrigin(origins = "http://localhost:4200") // TODO remove for production
-@RequestMapping("/auth")
-public class AuthController {
+@Controller
+@CrossOrigin(origins = "http://localhost:4200") // TODO set it in properties file
+public class AuthController implements AuthApi {
     @Autowired
     private JwtService jwtService;
 
@@ -24,23 +24,21 @@ public class AuthController {
     @Autowired
     private UserRepository userRepository;
 
-    @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
+    @Override
+    public ResponseEntity<LoginResponse> loginUser(LoginRequest loginRequest) {
         final String authToken = jwtService.createAuthToken(loginRequest);
         return ResponseEntity.ok(LoginResponse.builder().authToken(authToken).build());
     }
 
-    @PostMapping("/signup")
-    public ResponseEntity<Void> register(@RequestBody RegisterRequest registerRequest) {
+    @Override
+    public ResponseEntity<Void> registerUser(RegisterRequest registerRequest) {
         userService.registerUser(registerRequest);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @GetMapping("/verify")
-    public ResponseEntity<String> verify(@RequestHeader("X-Auth-Token") String token) {
-         if(jwtService.validateToken(token))
-             return ResponseEntity.ok().body(jwtService.getSubjectFromToken(token));
-         else
-             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+    @Override
+    public ResponseEntity<String> verifyToken(String xAuthToken) {
+         jwtService.validateToken(xAuthToken);
+         return ResponseEntity.ok().body(jwtService.getSubjectFromToken(xAuthToken));
     }
 }

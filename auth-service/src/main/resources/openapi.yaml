@@ -6,7 +6,7 @@ info:
 
 paths:
   /auth/login:
-    get:
+    post:
       summary: Login user
       operationId: loginUser
       tags:
@@ -32,7 +32,7 @@ paths:
           description: Server error
 
   /auth/register:
-    get:
+    post:
       summary: Register user
       operationId: registerUser
       tags:

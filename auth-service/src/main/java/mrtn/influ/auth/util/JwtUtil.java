@@ -3,6 +3,7 @@ package mrtn.influ.auth.util;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
+import mrtn.influ.auth.exception.TokenInvalidException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -33,20 +34,16 @@ public class JwtUtil {
         return Jwts.parser().verifyWith(SECRET).build().parseSignedClaims(token).getPayload();
     }
 
-    public Boolean  validateToken(String token) {
-        try {
-            return !isTokenExpired(token) && validateIssuer(token);
-        } catch (Exception e) {
-            LOGGER.error("Token validation error: ", e);
-            return false;
+    public void validateExpiry(String token) {
+        if(extractExpiration(token).before(new Date())) {
+            throw new TokenInvalidException("Token is expired!");
         }
     }
 
-    private Boolean isTokenExpired(String token) {
-        return extractExpiration(token).before(new Date());
-    }
-    private Boolean validateIssuer(String token) {
-        return extractIssuer(token).equals(ISSUER);
+    public void validateIssuer(String token) {
+        if (!extractIssuer(token).equals(ISSUER)) {
+            throw new TokenInvalidException("Token issuer is wrong!");
+        }
     }
 
     public String extractIssuer(String token) {

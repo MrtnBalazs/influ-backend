@@ -27,7 +27,7 @@ public class UserService {
             throw new ValidationException("Missing email or password from register request!");
 
         Optional<User> optionalUser = userRepository.findByEmail(registerRequest.getEmail());
-        if(optionalUser.isEmpty())
+        if(optionalUser.isPresent())
             throw new UserAlreadyExistsException("User already exists with the email: %s".formatted(registerRequest.getEmail()));
 
         saveUser(registerRequest);

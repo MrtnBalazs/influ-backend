@@ -33,8 +33,9 @@ public class JwtService {
         return jwtUtil.generateToken(userDetails);
     }
 
-    public boolean validateToken(String token) {
-        return jwtUtil.validateToken(token);
+    public void validateToken(String token) {
+        jwtUtil.validateExpiry(token);
+        jwtUtil.validateIssuer(token);
     }
 
     public String getSubjectFromToken(String token) {

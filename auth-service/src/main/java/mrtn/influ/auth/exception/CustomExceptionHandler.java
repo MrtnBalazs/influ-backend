@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class CustomExceptionHandler {
 
-    @ExceptionHandler({UsernameNotFoundException.class, AuthenticationException.class})
+    @ExceptionHandler({UsernameNotFoundException.class, AuthenticationException.class, TokenInvalidException.class})
     public ResponseEntity<Object> handleAuthExceptions(UsernameNotFoundException exception) {
         return ResponseEntity
                 .status(HttpStatus.UNAUTHORIZED)
