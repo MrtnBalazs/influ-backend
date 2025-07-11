@@ -33,6 +33,7 @@ public class SecurityConfig {
             .authorizeExchange((authorize) -> authorize
                     .pathMatchers("/api/v1/test/**").permitAll()
                     .pathMatchers("/api/campaigns/**").permitAll()
+                    .pathMatchers("/api/users/**").permitAll()
                     .anyExchange().denyAll()
             )
             .addFilterAt(new JwtAuthenticationWebFilter(authService), SecurityWebFiltersOrder.AUTHENTICATION);

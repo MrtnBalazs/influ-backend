@@ -1,0 +1,46 @@
+openapi: 3.0.1
+info:
+  title: User Microservice API
+  version: 1.0.0
+paths:
+  /api/users:
+    post:
+      summary: Create a new user
+      parameters:
+        - in: query
+          name: username
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: User created
+  /api/users/settings:
+    get:
+      summary: Get user settings
+      parameters:
+        - in: header
+          name: X-User-Id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Settings retrieved
+    post:
+      summary: Save user settings
+      parameters:
+        - in: header
+          name: X-User-Id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Settings saved
