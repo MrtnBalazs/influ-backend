@@ -4,4 +4,8 @@ public class GatewayAuthenticationException extends RuntimeException {
     public GatewayAuthenticationException(String message) {
         super(message);
     }
+
+    public GatewayAuthenticationException(Throwable cause) {
+        super(cause);
+    }
 }

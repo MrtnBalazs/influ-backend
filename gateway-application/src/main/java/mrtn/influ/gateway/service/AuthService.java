@@ -34,10 +34,16 @@ public class AuthService {
         return response.getBody();
     }
 
+    // TODO call with swagger generated client
     private ResponseEntity<String> callAuthService(String token) {
-        HttpHeaders headers = new HttpHeaders();
-        headers.set(AUTH_TOKEN_HEADER, token);
-        HttpEntity<String> entity = new HttpEntity<>(headers);
-        return restTemplate.exchange(tokenVerifyEndpointUrl, HttpMethod.GET, entity, String.class);
+        try {
+            HttpHeaders headers = new HttpHeaders();
+            headers.set(AUTH_TOKEN_HEADER, token);
+            HttpEntity<String> entity = new HttpEntity<>(headers);
+            return restTemplate.exchange(tokenVerifyEndpointUrl, HttpMethod.GET, entity, String.class);
+        } catch (Exception exception) {
+            LOGGER.error("Error happened during AuthService call");
+            throw new TechnicalException(exception);
+        }
     }
 }
