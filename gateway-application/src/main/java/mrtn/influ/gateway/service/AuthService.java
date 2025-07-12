@@ -1,8 +1,10 @@
 package mrtn.influ.gateway.service;
 
-import mrtn.influ.gateway.error.handling.GatewayBusinessException;
+import mrtn.influ.gateway.error.handling.GatewayAuthenticationException;
+import mrtn.influ.gateway.error.handling.TechnicalException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -10,6 +12,8 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.Objects;
 
 @Service
 public class AuthService {
@@ -19,15 +23,21 @@ public class AuthService {
     @Value("${auth.service.verify.endpoint}")
     private String tokenVerifyEndpointUrl;
 
+    @Autowired
+    private RestTemplate restTemplate;
+
     public String validateToken(String token) {
-        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<String> response = callAuthService(token);
+        LOGGER.debug("Token validation response HTTP status code: {}, userId: {}, token: {}", response.getStatusCode(), response.getBody(), token);
+        if(!response.getStatusCode().is2xxSuccessful() || Objects.isNull(response.getBody()))
+            throw new TechnicalException("Problems with token validation! token: %s AuthService response code: %s".formatted(token, response.getStatusCode()));
+        return response.getBody();
+    }
+
+    private ResponseEntity<String> callAuthService(String token) {
         HttpHeaders headers = new HttpHeaders();
         headers.set(AUTH_TOKEN_HEADER, token);
         HttpEntity<String> entity = new HttpEntity<>(headers);
-        ResponseEntity<String> response = restTemplate.exchange(tokenVerifyEndpointUrl, HttpMethod.GET, entity, String.class);
-        LOGGER.debug("Token validation response HTTP status code: {}, userId: {}", response.getStatusCode(), response.getBody());
-        if(!response.getStatusCode().is2xxSuccessful())
-            throw new GatewayBusinessException("Problems with token validation!");
-        return response.getBody();
+        return restTemplate.exchange(tokenVerifyEndpointUrl, HttpMethod.GET, entity, String.class);
     }
 }

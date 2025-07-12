@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/auth/admin") // TODO make it available only with ADMIN role
+@RequestMapping("/api/v1/auth/admin") // TODO make it available only with ADMIN role
 public class AdminController {
 
     @Autowired

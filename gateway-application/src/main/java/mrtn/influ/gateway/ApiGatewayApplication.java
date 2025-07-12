@@ -15,17 +15,21 @@ public class ApiGatewayApplication {
     @Bean
     public RouteLocator customRouteLocator(RouteLocatorBuilder builder) {
         return builder.routes()
-                .route("test", r -> r.path("/api/v1/test/**")
+                .route("test", r -> r
+                        .path("/api/v1/test/**")
+                        .filters(f -> f.rewritePath("/api/v1/test/(?<segment>.*)", "/api/v1/test/${segment}"))
                         .uri("lb://TEST-SERVICE"))
                 .route("campaign", r -> r
                         .path("/api/campaigns/**")
-                        .filters(f -> f.rewritePath("/api/campaigns/(?<segment>.*)", "/api/v1/campaigns/${segment}"))
+                        .filters(f -> f.rewritePath("/api/v1/campaigns/(?<segment>.*)", "/api/v1/campaigns/${segment}"))
                         .uri("lb://CAMPAIGN-SERVICE"))
                 .route("user", r -> r
                         .path("/api/users/**")
-                        .filters(f -> f.rewritePath("/api/users/(?<segment>.*)", "/api/v1/users/${segment}"))
+                        .filters(f -> f.rewritePath("/api/v1/users/(?<segment>.*)", "/api/v1/users/${segment}"))
                         .uri("lb://USER-SERVICE"))
-                .route("auth", r -> r.path("/auth/**")
+                .route("auth", r -> r
+                        .path("/api/v1/auth/**")
+                        .filters(f -> f.rewritePath("/api/v1/auth/(?<segment>.*)", "/api/v1/auth/${segment}"))
                         .uri("lb://AUTH-SERVICE"))
                 .build();
     }

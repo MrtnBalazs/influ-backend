@@ -1,6 +1,6 @@
 package mrtn.influ.gateway.config;
 
-import mrtn.influ.gateway.error.handling.GatewayBusinessException;
+import mrtn.influ.gateway.error.handling.GatewayAuthenticationException;
 import mrtn.influ.gateway.service.AuthService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,8 +37,9 @@ public class JwtAuthenticationWebFilter implements WebFilter {
     }
 
     private void validateAuthHeader(String authHeader) {
-        if (Objects.isNull(authHeader) || !authHeader.startsWith("Bearer ")) {
-            throw new GatewayBusinessException("Missing auth token!"); // TODO Global spring gateway exception handler
-        }
+        if (Objects.isNull(authHeader))
+            throw new GatewayAuthenticationException("Missing auth header!");
+        if (!authHeader.startsWith("Bearer "))
+            throw new GatewayAuthenticationException("Missing bearer token!");
     }
 }

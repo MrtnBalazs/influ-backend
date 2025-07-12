@@ -5,7 +5,7 @@ info:
   version: 1.0.0
 
 paths:
-  /auth/login:
+  /api/v1/auth/login:
     post:
       summary: Login user
       operationId: loginUser
@@ -31,7 +31,7 @@ paths:
         '500':
           description: Server error
 
-  /auth/register:
+  /api/v1/auth/register:
     post:
       summary: Register user
       operationId: registerUser
@@ -51,7 +51,7 @@ paths:
         '500':
           description: Server error
 
-  /auth/verify:
+  /api/v1/auth/verify:
     get:
       summary: Verify user token
       operationId: verifyToken
