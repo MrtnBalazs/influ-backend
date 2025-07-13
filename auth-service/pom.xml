@@ -9,7 +9,7 @@
         <version>0.1.0</version>
     </parent>
 
-    <groupId>mrtn.influ.gateway</groupId>
+    <groupId>mrtn.influ.auth</groupId>
     <artifactId>auth-service</artifactId>
 
     <properties>
@@ -119,7 +119,7 @@
                                 <library>spring-boot</library>
                                 <useSpringBoot3>true</useSpringBoot3>
                                 <useJakartaEe>true</useJakartaEe>
-                                <interfaceOnly>true</interfaceOnly>
+                                <!-- <interfaceOnly>true</interfaceOnly> -->
                                 <useTags>true</useTags>
                                 <useSpringController>true</useSpringController>
                                 <apiPackage>mrtn.influ.auth.endpoint</apiPackage>
