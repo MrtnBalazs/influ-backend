@@ -63,6 +63,8 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
+
+        <!-- Swagger dependencies -->
         <dependency>
             <groupId>org.openapitools</groupId>
             <artifactId>jackson-databind-nullable</artifactId>
@@ -119,7 +121,7 @@
                                 <library>spring-boot</library>
                                 <useSpringBoot3>true</useSpringBoot3>
                                 <useJakartaEe>true</useJakartaEe>
-                                <!-- <interfaceOnly>true</interfaceOnly> -->
+                                <interfaceOnly>true</interfaceOnly>
                                 <useTags>true</useTags>
                                 <useSpringController>true</useSpringController>
                                 <apiPackage>mrtn.influ.auth.endpoint</apiPackage>

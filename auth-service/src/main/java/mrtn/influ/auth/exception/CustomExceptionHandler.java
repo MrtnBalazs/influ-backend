@@ -12,21 +12,21 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class CustomExceptionHandler {
 
     @ExceptionHandler({UsernameNotFoundException.class, AuthenticationException.class, TokenInvalidException.class})
-    public ResponseEntity<Object> handleAuthExceptions(UsernameNotFoundException exception) {
+    public ResponseEntity<Object> handleAuthExceptions(Exception exception) {
         return ResponseEntity
                 .status(HttpStatus.UNAUTHORIZED)
                 .body(exception.getMessage());
     }
 
     @ExceptionHandler({ValidationException.class, UserAlreadyExistsException.class})
-    public ResponseEntity<Object> handleBadRequests(ValidationException exception) {
+    public ResponseEntity<Object> handleBadRequests(Exception exception) {
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
                 .body(exception.getMessage());
     }
 
     @ExceptionHandler({RuntimeException.class})
-    public ResponseEntity<Object> handleRuntimeException(RuntimeException exception) {
+    public ResponseEntity<Object> handleRuntimeException(Exception exception) {
         return ResponseEntity
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(exception.getMessage());

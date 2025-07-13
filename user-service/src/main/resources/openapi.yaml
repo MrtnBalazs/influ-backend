@@ -1,0 +1,95 @@
+openapi: 3.1.0
+info:
+  title: User Microservice API
+  description: API for user service
+  version: 1.0.0
+paths:
+  /api/v1/users:
+    post:
+      summary: Create a new user
+      operationId: createUser
+      tags:
+        - user
+      parameters:
+        - name: X-User-Id
+          in: header
+          required: true
+          description: Id of user provided by the gateway
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserRequest'
+      responses:
+        '201':
+          description: User created
+        '400':
+          description: Invalid request
+        '403':
+          description: User already exists
+        '500':
+          description: Technical issue
+
+  /api/v1/users/user:
+    get:
+      summary: Get user
+      operationId: getUser
+      tags:
+        - user
+      parameters:
+        - name: X-User-Id
+          in: header
+          required: true
+          description: Id of user provided by the gateway
+          schema:
+            type: string
+      responses:
+        '200':
+          description: User found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetUserResponse'
+        '400':
+          description: Invalid request
+        '404':
+          description: User not found
+        '500':
+          description: Technical issue
+
+components:
+  schemas:
+    CreateUserRequest:
+      type: object
+      required:
+        - username
+        - userType
+      properties:
+        username:
+          type: string
+        userType:
+          type: string
+    GetUserResponse:
+      type: object
+      required:
+        - username
+        - email
+        - settings
+        - userType
+      properties:
+        email:
+          type: string
+        username:
+          type: string
+        userType:
+          type: string
+        settings:
+          type: object
+          required:
+            - emailNotification
+          properties:
+            emailNotification:
+              type: boolean
