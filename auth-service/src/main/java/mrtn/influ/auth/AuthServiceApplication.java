@@ -2,7 +2,6 @@ package mrtn.influ.auth;
 
 import mrtn.influ.auth.dto.LoginRequest;
 import mrtn.influ.auth.dto.RegisterRequest;
-import mrtn.influ.auth.model.User;
 import mrtn.influ.auth.service.JwtService;
 import mrtn.influ.auth.service.UserService;
 import org.slf4j.Logger;
