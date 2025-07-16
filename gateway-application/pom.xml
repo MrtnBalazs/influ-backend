@@ -10,7 +10,7 @@
     </parent>
 
     <groupId>mrtn.influ.gateway</groupId>
-    <artifactId>gateway-fail</artifactId>
+    <artifactId>gateway-service</artifactId>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -21,8 +21,15 @@
     <dependencies>
         <dependency>
             <groupId>mrtn.influ.auth</groupId>
-            <artifactId>auth-service</artifactId>
-            <version>0.1.0</version>
+            <artifactId>auth-service-api</artifactId>
+            <version>0.0.1</version>
+            <exclusions>
+                <!-- Need to exclude because conflict with spring cloud and webflux -->
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-web</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
