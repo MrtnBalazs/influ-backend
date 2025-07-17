@@ -2,10 +2,9 @@ package mrtn.influ.auth.service;
 
 import jakarta.transaction.Transactional;
 import jakarta.validation.ValidationException;
-import mrtn.influ.auth.dto.RegisterRequest;
 import mrtn.influ.auth.exception.UserAlreadyExistsException;
-import mrtn.influ.auth.model.User;
-import mrtn.influ.auth.repository.UserRepository;
+import mrtn.influ.auth.dao.entity.User;
+import mrtn.influ.auth.dao.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -22,7 +21,7 @@ public class UserService {
     private PasswordEncoder passwordEncoder;
 
     @Transactional
-    public void registerUser(RegisterRequest registerRequest) {
+    public void registerUser(mrtn.influ.auth.dto.RegisterRequest registerRequest) {
         if(Objects.isNull(registerRequest.getEmail()) || Objects.isNull(registerRequest.getPassword()))
             throw new ValidationException("Missing email or password from register request!");
 
@@ -33,7 +32,7 @@ public class UserService {
         saveUser(registerRequest);
     }
 
-    private void saveUser (RegisterRequest registerRequest) {
+    private void saveUser (mrtn.influ.auth.dto.RegisterRequest registerRequest) {
         String password = passwordEncoder.encode(registerRequest.getPassword());
         User user = new User(registerRequest.getEmail(), password, "USER");
         userRepository.save(user);

@@ -1,7 +1,7 @@
 package mrtn.influ.user;
 
 import mrtn.influ.user.business.service.UserService;
-import mrtn.influ.userservice.dto.CreateUserRequest;
+import mrtn.influ.user.dto.CreateUserRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;

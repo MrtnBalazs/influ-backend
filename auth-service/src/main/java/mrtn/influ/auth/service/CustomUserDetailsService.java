@@ -1,7 +1,7 @@
 package mrtn.influ.auth.service;
 
-import mrtn.influ.auth.model.User;
-import mrtn.influ.auth.repository.UserRepository;
+import mrtn.influ.auth.dao.entity.User;
+import mrtn.influ.auth.dao.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

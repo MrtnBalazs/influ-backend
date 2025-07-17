@@ -1,13 +1,10 @@
 package mrtn.influ.user.mapper;
 
+import mrtn.influ.user.dto.GetUserResponse;
+import mrtn.influ.user.dto.GetUserResponseSettings;
 import mrtn.influ.user.entity.SettingsEntity;
 import mrtn.influ.user.entity.UserEntity;
-import mrtn.influ.userservice.dto.GetUserResponse;
-import mrtn.influ.userservice.dto.GetUserResponseSettings;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
-
 
 @Component
 public class UserMapper {

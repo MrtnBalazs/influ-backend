@@ -11,16 +11,23 @@
 
     <groupId>mrtn.influ.auth</groupId>
     <artifactId>auth-service</artifactId>
+    <version>0.0.1</version>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+
     <dependencies>
         <dependency>
             <groupId>mrtn.influ.auth</groupId>
             <artifactId>auth-service-api</artifactId>
+            <version>0.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>mrtn.influ.user</groupId>
+            <artifactId>user-service-api</artifactId>
             <version>0.0.1</version>
         </dependency>
 

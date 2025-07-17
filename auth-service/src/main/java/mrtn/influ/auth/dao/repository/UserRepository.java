@@ -1,6 +1,6 @@
-package mrtn.influ.auth.repository;
+package mrtn.influ.auth.dao.repository;
 
-import mrtn.influ.auth.model.User;
+import mrtn.influ.auth.dao.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,13 +1,13 @@
 package mrtn.influ.user.business.service;
 
 import mrtn.influ.user.dao.UserRepository;
+import mrtn.influ.user.dto.CreateUserRequest;
+import mrtn.influ.user.dto.GetUserResponse;
 import mrtn.influ.user.entity.UserType;
 import mrtn.influ.user.entity.UserEntity;
 import mrtn.influ.user.exception.UserAlreadyExistsException;
 import mrtn.influ.user.exception.UserNotFoundException;
 import mrtn.influ.user.mapper.UserMapper;
-import mrtn.influ.userservice.dto.CreateUserRequest;
-import mrtn.influ.userservice.dto.GetUserResponse;
 import org.springframework.stereotype.Service;
 
 @Service

@@ -1,9 +1,8 @@
 package mrtn.influ.user.endpoint;
 
 import mrtn.influ.user.business.service.UserService;
-import mrtn.influ.userservice.dto.CreateUserRequest;
-import mrtn.influ.userservice.dto.GetUserResponse;
-import mrtn.influ.userservice.endpoint.UserApi;
+import mrtn.influ.user.dto.CreateUserRequest;
+import mrtn.influ.user.dto.GetUserResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;

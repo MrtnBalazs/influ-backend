@@ -3,7 +3,7 @@ package mrtn.influ.auth.endpoint;
 import mrtn.influ.auth.dto.LoginRequest;
 import mrtn.influ.auth.dto.LoginResponse;
 import mrtn.influ.auth.dto.RegisterRequest;
-import mrtn.influ.auth.repository.UserRepository;
+import mrtn.influ.auth.dao.repository.UserRepository;
 import mrtn.influ.auth.service.JwtService;
 import mrtn.influ.auth.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
