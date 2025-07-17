@@ -2,6 +2,7 @@ package mrtn.influ.auth.service;
 
 import jakarta.validation.ValidationException;
 import mrtn.influ.auth.dto.LoginRequest;
+import mrtn.influ.auth.exception.ErrorCode;
 import mrtn.influ.auth.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -23,8 +24,10 @@ public class JwtService {
     private JwtUtil jwtUtil;
 
     public String createAuthToken(LoginRequest loginRequest) {
-        if(Objects.isNull(loginRequest.getEmail()) || Objects.isNull(loginRequest.getPassword()))
-            throw new ValidationException("Missing email or password from login request!");
+        if(Objects.isNull(loginRequest.getEmail()))
+            ErrorCode.FIELD_MISSING.toException("email");
+        if(Objects.isNull(loginRequest.getPassword()))
+            ErrorCode.FIELD_MISSING.toException("password");
 
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));

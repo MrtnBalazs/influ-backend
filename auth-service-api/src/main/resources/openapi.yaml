@@ -98,8 +98,15 @@ components:
       required:
         - email
         - password
+        - username
+        - userType
       properties:
         email:
           type: string
         password:
           type: string
+        username:
+          type: string
+        userType:
+          type: string
+          enum: [ BRAND, INFLUENCER ]

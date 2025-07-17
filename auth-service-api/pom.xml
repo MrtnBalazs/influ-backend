@@ -79,8 +79,8 @@
                                 <useSpringController>true</useSpringController>
                                 <apiPackage>mrtn.influ.auth.endpoint</apiPackage>
                                 <modelPackage>mrtn.influ.auth.dto</modelPackage>
-                                <useSpringBuiltInValidation>true</useSpringBuiltInValidation>
                                 <generateBuilders>true</generateBuilders>
+                                <!-- <useSpringBuiltInValidation>true</useSpringBuiltInValidation> -->
                                 <!-- <performBeanValidation>true</performBeanValidation> -->
                             </configOptions>
                         </configuration>
