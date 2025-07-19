@@ -4,6 +4,7 @@ import mrtn.influ.auth.dto.LoginRequest;
 import mrtn.influ.auth.dto.LoginResponse;
 import mrtn.influ.auth.dto.RegisterRequest;
 import mrtn.influ.auth.dao.repository.UserRepository;
+import mrtn.influ.auth.log.LogRequestResponse;
 import mrtn.influ.auth.service.JwtService;
 import mrtn.influ.auth.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,18 +25,21 @@ public class AuthController implements AuthApi {
     @Autowired
     private UserRepository userRepository;
 
+    @LogRequestResponse
     @Override
     public ResponseEntity<LoginResponse> loginUser(LoginRequest loginRequest) {
         final String authToken = jwtService.createAuthToken(loginRequest);
         return ResponseEntity.ok(LoginResponse.builder().authToken(authToken).build());
     }
 
+    @LogRequestResponse
     @Override
     public ResponseEntity<Void> registerUser(RegisterRequest registerRequest) {
         userService.registerUser(registerRequest);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
+    @LogRequestResponse
     @Override
     public ResponseEntity<String> verifyToken(String xAuthToken) {
          jwtService.validateToken(xAuthToken);

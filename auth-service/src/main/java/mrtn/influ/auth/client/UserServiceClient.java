@@ -1,6 +1,7 @@
 package mrtn.influ.auth.client;
 
 import mrtn.influ.auth.exception.ErrorCode;
+import mrtn.influ.auth.util.Consts;
 import mrtn.influ.user.dto.CreateUserRequest;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -20,12 +21,12 @@ public class UserServiceClient {
         CreateUserRequest createUserRequest = CreateUserRequest.builder()
                 .userType(registerRequest.getUserType().name())
                 .username(registerRequest.getUsername())
-                .email(registerRequest.getEmail())
                 .build();
         try {
             ResponseEntity<Void> response = restClient
                     .post()
                     .uri(userServiceUrl + "/api/v1/users")
+                    .header(Consts.X_USER_ID_HEADER, registerRequest.getEmail())
                     .body(createUserRequest)
                     .retrieve()
                     .toBodilessEntity();

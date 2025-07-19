@@ -65,12 +65,9 @@ components:
     CreateUserRequest:
       type: object
       required:
-        - email
         - username
         - userType
       properties:
-        email:
-          type: string
         username:
           type: string
         userType:
