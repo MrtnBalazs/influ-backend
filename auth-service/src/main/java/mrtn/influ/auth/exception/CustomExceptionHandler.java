@@ -1,6 +1,9 @@
 package mrtn.influ.auth.exception;
 
 import jakarta.validation.ValidationException;
+import mrtn.influ.auth.AuthServiceApplication;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -11,6 +14,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
 public class CustomExceptionHandler {
+    private static final Logger LOGGER = LoggerFactory.getLogger(CustomExceptionHandler.class);
 
     @ExceptionHandler({BusinessException.class})
     public ResponseEntity<Object> handleBusinessExceptions(BusinessException businessException) {

@@ -12,10 +12,13 @@ import org.springframework.web.client.RestClient;
 @Component
 public class UserServiceClient {
 
-    @Value( "${user.service.url}" )
-    private String userServiceUrl;
+    private final RestClient restClient;
 
-    RestClient restClient = RestClient.create();
+    public UserServiceClient(
+            RestClient.Builder restClientBuilder,
+            @Value("${user-service.base-url}") String baseUrl) {
+        restClient = restClientBuilder.baseUrl(baseUrl).build();
+    }
 
     public void callRegisterUser(mrtn.influ.auth.dto.RegisterRequest registerRequest) {
         CreateUserRequest createUserRequest = CreateUserRequest.builder()
@@ -25,7 +28,7 @@ public class UserServiceClient {
         try {
             ResponseEntity<Void> response = restClient
                     .post()
-                    .uri(userServiceUrl + "/api/v1/users")
+                    .uri("/api/v1/users")
                     .header(Consts.X_USER_ID_HEADER, registerRequest.getEmail())
                     .body(createUserRequest)
                     .retrieve()

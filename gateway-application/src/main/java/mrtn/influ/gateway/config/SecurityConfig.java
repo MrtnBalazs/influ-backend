@@ -25,7 +25,7 @@ public class SecurityConfig {
         http
             .csrf(ServerHttpSecurity.CsrfSpec::disable) // TODO check if it's necessary
             .addFilterBefore(new ExceptionHandlerFilter(), SecurityWebFiltersOrder.AUTHENTICATION)
-            .securityMatcher(new PathPatternParserServerWebExchangeMatcher("/api/v1/auth/**"));
+            .securityMatcher(new PathPatternParserServerWebExchangeMatcher("/api/auth/**"));
         return http.build();
     }
 
@@ -35,9 +35,9 @@ public class SecurityConfig {
         http
                 .csrf(ServerHttpSecurity.CsrfSpec::disable) // TODO check if it's necessary
                 .authorizeExchange((authorize) -> authorize
-                        .pathMatchers("/api/v1/test/**").permitAll()
-                        .pathMatchers("/api/v1/campaigns/**").permitAll()
-                        .pathMatchers("/api/v1/users/**").permitAll()
+                        .pathMatchers("/api/test/**").permitAll()
+                        .pathMatchers("/api/campaigns/**").permitAll()
+                        .pathMatchers("/api/users/**").permitAll()
                         .anyExchange().denyAll()
                 )
                 .addFilterBefore(new ExceptionHandlerFilter(), SecurityWebFiltersOrder.AUTHENTICATION)
