@@ -23,6 +23,10 @@ public class ApiGatewayApplication {
                         .path("/api/campaigns/**")
                         .filters(f -> f.rewritePath("/api/campaigns/(?<segment>.*)", "/api/v1/campaigns/${segment}"))
                         .uri("lb://CAMPAIGN-SERVICE"))
+                .route("userCreate", r -> r
+                        .path("/api/users")
+                        .filters(f -> f.rewritePath("/api/users", "/api/v1/users"))
+                        .uri("lb://USER-SERVICE"))
                 .route("user", r -> r
                         .path("/api/users/**")
                         .filters(f -> f.rewritePath("/api/users/(?<segment>.*)", "/api/v1/users/${segment}"))
