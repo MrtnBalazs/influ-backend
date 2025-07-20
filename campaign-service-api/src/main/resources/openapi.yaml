@@ -1,0 +1,116 @@
+openapi: 3.1.0
+info:
+  title: Campaign Service API
+  description: API for campaign service
+  version: 1.0.0
+
+# minden campaign | 1 bizonyos kampány | user kampányai | kampány csinálás | pics csinálás | user picsjei
+# kampány törlés, | pics törlés
+
+paths:
+  /api/v1/campaigns:
+    get:
+      summary: Get all campaigns
+      operationId: getAllCampaigns
+      tags:
+        - campaign
+      responses:
+        '200':
+          description: All the campaigns
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetAllCampaignsResponse'
+        '400':
+          description: Request validation error
+        '500':
+          description: Server error
+
+  /api/v1/campaigns/campaign:
+    get:
+      summary: Get a campaign
+      operationId: getCampaign
+      tags:
+        - campaign
+      parameters:
+        - name: id
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A campaign
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetCampaignResponse'
+        '400':
+          description: Request validation error
+        '500':
+          description: Server error
+
+components:
+  schemas:
+    Pitch:
+      type: object
+      required:
+        - id
+        - ownerId
+        - title
+      properties:
+        id:
+          type: integer
+        ownerId:
+          type: string
+        title:
+          type: string
+        text:
+          type: string
+
+    Campaign:
+      type: object
+      required:
+        - id
+        - ownerId
+        - title
+        - campaignType
+      properties:
+        id:
+          type: integer
+        ownerId:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        contentGuideline:
+          type: string
+        campaignType:
+          type: string
+          enum: [ PRODUCT-FOR-POST, PAID-POST, AFFILIATE ]
+        fee:
+          type: integer
+        pitchList:
+          type: array
+          items:
+            $ref: '#/components/schemas/Pitch'
+
+    GetAllCampaignsResponse:
+      type: object
+      required:
+        - campaignList
+      properties:
+        campaignList:
+          type: array
+          items:
+            $ref: '#/components/schemas/Campaign'
+
+    GetCampaignResponse:
+      type: object
+      required:
+        - campaign
+      properties:
+        campaign:
+          $ref: '#/components/schemas/Campaign'
+

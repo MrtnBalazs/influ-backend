@@ -6,4 +6,5 @@
 /eureka/target
 /testService/target
 /campaign-service/target
+/campaign-service-api/target
 /user-service-api/target
