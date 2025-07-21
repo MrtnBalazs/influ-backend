@@ -1,6 +1,5 @@
 package mrtn.influ.auth.service;
 
-import jakarta.validation.ValidationException;
 import mrtn.influ.auth.dto.LoginRequest;
 import mrtn.influ.auth.exception.ErrorCode;
 import mrtn.influ.auth.util.JwtUtil;

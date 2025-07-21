@@ -1,6 +1,5 @@
 package mrtn.influ.gateway.service;
 
-import mrtn.influ.gateway.error.handling.GatewayAuthenticationException;
 import mrtn.influ.gateway.error.handling.TechnicalException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

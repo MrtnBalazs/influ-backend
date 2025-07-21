@@ -4,7 +4,7 @@ import mrtn.influ.gateway.error.handling.GatewayAuthenticationException;
 import mrtn.influ.gateway.service.AuthService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.*;
+import org.springframework.http.HttpHeaders;
 import org.springframework.web.server.ServerWebExchange;
 import org.springframework.web.server.WebFilter;
 import org.springframework.web.server.WebFilterChain;

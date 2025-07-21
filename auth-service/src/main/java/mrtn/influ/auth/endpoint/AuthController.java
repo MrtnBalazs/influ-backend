@@ -1,9 +1,9 @@
 package mrtn.influ.auth.endpoint;
 
+import mrtn.influ.auth.dao.repository.UserRepository;
 import mrtn.influ.auth.dto.LoginRequest;
 import mrtn.influ.auth.dto.LoginResponse;
 import mrtn.influ.auth.dto.RegisterRequest;
-import mrtn.influ.auth.dao.repository.UserRepository;
 import mrtn.influ.auth.log.LogRequestResponse;
 import mrtn.influ.auth.service.JwtService;
 import mrtn.influ.auth.service.UserService;
@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 @Controller
 @CrossOrigin(origins = "http://localhost:4200") // TODO set it in properties file

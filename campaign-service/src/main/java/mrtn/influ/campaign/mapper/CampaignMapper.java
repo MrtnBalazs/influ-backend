@@ -1,9 +1,9 @@
 package mrtn.influ.campaign.mapper;
 
+import mrtn.influ.campaign.dao.entity.CampaignEntity;
 import mrtn.influ.campaign.dto.Campaign;
 import mrtn.influ.campaign.dto.CreateCampaignRequest;
 import mrtn.influ.campaign.dto.Pitch;
-import mrtn.influ.campaign.dao.entity.CampaignEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

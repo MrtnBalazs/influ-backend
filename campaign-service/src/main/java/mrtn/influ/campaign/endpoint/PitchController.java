@@ -1,9 +1,6 @@
 package mrtn.influ.campaign.endpoint;
 
-import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import jakarta.transaction.Transactional;
-import jakarta.validation.constraints.NotNull;
 import mrtn.influ.campaign.dto.CreatePitchRequest;
 import mrtn.influ.campaign.dto.GetPitchesForUserResponse;
 import mrtn.influ.campaign.dto.Pitch;
@@ -12,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.util.List;
 

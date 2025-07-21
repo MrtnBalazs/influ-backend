@@ -11,7 +11,8 @@ import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.web.server.SecurityWebFilterChain;
 import org.springframework.security.web.server.util.matcher.PathPatternParserServerWebExchangeMatcher;
 
-import static mrtn.influ.gateway.util.FilterOrderConsts.*;
+import static mrtn.influ.gateway.util.FilterOrderConsts.SECURED_CHAIN;
+import static mrtn.influ.gateway.util.FilterOrderConsts.UNSECURED_CHAIN;
 
 @Configuration
 public class SecurityConfig {

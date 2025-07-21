@@ -1,8 +1,8 @@
 package mrtn.influ.campaign.service;
 
+import mrtn.influ.campaign.dao.entity.CampaignEntity;
 import mrtn.influ.campaign.dao.repository.CampaignRepository;
 import mrtn.influ.campaign.dto.Campaign;
-import mrtn.influ.campaign.dao.entity.CampaignEntity;
 import mrtn.influ.campaign.mapper.CampaignMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

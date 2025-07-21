@@ -2,10 +2,10 @@ package mrtn.influ.auth.service;
 
 import jakarta.transaction.Transactional;
 import mrtn.influ.auth.client.UserServiceClient;
-import mrtn.influ.auth.exception.ErrorCode;
 import mrtn.influ.auth.dao.entity.User;
-import mrtn.influ.auth.dto.RegisterRequest;
 import mrtn.influ.auth.dao.repository.UserRepository;
+import mrtn.influ.auth.dto.RegisterRequest;
+import mrtn.influ.auth.exception.ErrorCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
