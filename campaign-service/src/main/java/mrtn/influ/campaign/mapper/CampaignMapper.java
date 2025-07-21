@@ -1,9 +1,9 @@
 package mrtn.influ.campaign.mapper;
 
-import mrtn.influ.campaign.dto.CampaignDto;
+import mrtn.influ.campaign.dto.Campaign;
 import mrtn.influ.campaign.dto.CreateCampaignRequest;
-import mrtn.influ.campaign.dto.PitchDto;
-import mrtn.influ.campaign.entity.CampaignEntity;
+import mrtn.influ.campaign.dto.Pitch;
+import mrtn.influ.campaign.dao.entity.CampaignEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -15,27 +15,30 @@ public class CampaignMapper {
     @Autowired
     private PitchMapper pitchMapper;
 
-    public CampaignDto mapCampaign(CampaignEntity campaignEntity, Boolean favorited) {
-        List<PitchDto> pitchDtos = campaignEntity.getPitches().stream().map(
+    public Campaign mapCampaign(CampaignEntity campaignEntity) {
+        List<Pitch> pitchDtos = campaignEntity.getPitches().stream().map(
                 pitchEntity -> pitchMapper.mapPitchEntity(pitchEntity)
         ).toList();
-        return new CampaignDto(
-                campaignEntity.getId(),
-                campaignEntity.getUserId(),
+        Campaign campaign = new Campaign(
+                campaignEntity.getId().intValue(),
+                campaignEntity.getOwnerId(),
                 campaignEntity.getTitle(),
-                campaignEntity.getDescription(),
-                campaignEntity.getMaxFee(),
-                campaignEntity.getMinFee(),
-                favorited,
-                pitchDtos);
+                Campaign.CampaignTypeEnum.valueOf(campaignEntity.getCampaignType()));
+        campaign.setDescription(campaignEntity.getDescription());
+        campaign.setContentGuideline(campaignEntity.getContentGuideline());
+        campaign.setFee(campaignEntity.getFee());
+        campaign.setPitchList(pitchDtos);
+        return campaign;
     }
 
-    public CampaignEntity mapCreateCampaignRequest(CreateCampaignRequest createCampaignRequest, String userId) {
+    public CampaignEntity mapCreateCampaignRequest(CreateCampaignRequest createCampaignRequest, String ownerId) {
         return new CampaignEntity(
-                userId,
+                ownerId,
                 createCampaignRequest.getTitle(),
                 createCampaignRequest.getDescription(),
-                createCampaignRequest.getMaxFee(),
-                createCampaignRequest.getMinFee());
+                createCampaignRequest.getContentGuideline(),
+                createCampaignRequest.getFee(),
+                createCampaignRequest.getCampaignType().name()
+        );
     }
 }

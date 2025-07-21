@@ -1,38 +1,45 @@
 package mrtn.influ.campaign.endpoint;
 
-import mrtn.influ.campaign.business.service.PitchService;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
+import jakarta.transaction.Transactional;
+import jakarta.validation.constraints.NotNull;
 import mrtn.influ.campaign.dto.CreatePitchRequest;
-import mrtn.influ.campaign.dto.GetPitchResponse;
 import mrtn.influ.campaign.dto.GetPitchesForUserResponse;
+import mrtn.influ.campaign.dto.Pitch;
+import mrtn.influ.campaign.service.PitchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import static mrtn.influ.campaign.endpoint.CampaignController.USER_ID_HEADER;
+import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:4200") // TODO only for testing without gateway
 @Controller
-@RequestMapping("/api/v1/campaigns/pitches")
-public class PitchController {
+public class PitchController implements PitchApi {
 
     @Autowired
     private PitchService pitchService;
 
-    @GetMapping("/{id}")
-    public ResponseEntity<GetPitchResponse> getPitch(@PathVariable(name = "id") Long id) {
-        return ResponseEntity.ok(new GetPitchResponse(pitchService.getPitchById(id)));
-    }
-
-    @GetMapping("/user")
-    public ResponseEntity<GetPitchesForUserResponse> getPitchesForUser(@RequestHeader(USER_ID_HEADER) String userId) {
-        return ResponseEntity.ok(new GetPitchesForUserResponse(pitchService.getPitchesByUserId(userId)));
-    }
-
-    @PostMapping("/create")
-    public ResponseEntity<Void> createPitch(@RequestHeader(USER_ID_HEADER) String userId, @RequestBody CreatePitchRequest createPitchRequest) {
-        pitchService.createPitch(createPitchRequest, userId);
+    @Override
+    public  ResponseEntity<Void> createPitch(String xUserId, CreatePitchRequest createPitchRequest) {
+        pitchService.createPitch(createPitchRequest, xUserId);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
+
+    @Transactional
+    @Override
+    public ResponseEntity<Void> deletePitch(Integer id, String xUserId) {
+        pitchService.deletePitch(id, xUserId);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @Override
+    public ResponseEntity<GetPitchesForUserResponse> getPitchesForUser(String xUserId) {
+        List<Pitch> pitchList = pitchService.getPitchesForUser(xUserId);
+        return ResponseEntity.status(HttpStatus.OK).body(new GetPitchesForUserResponse().pitchList(pitchList));
+    }
+
 }

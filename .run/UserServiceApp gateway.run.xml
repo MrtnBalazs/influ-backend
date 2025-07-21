@@ -1,0 +1,16 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="UserServiceApp gateway" type="Application" factoryName="Application">
+    <option name="MAIN_CLASS_NAME" value="mrtn.influ.user.UserServiceApp" />
+    <module name="user-service" />
+    <option name="VM_PARAMETERS" value="-Dspring.profiles.active=gateway" />
+    <extension name="coverage">
+      <pattern>
+        <option name="PATTERN" value="mrtn.influ.user.*" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+    </extension>
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

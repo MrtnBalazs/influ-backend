@@ -1,4 +1,4 @@
-package mrtn.influ.campaign.entity;
+package mrtn.influ.campaign.dao.entity;
 
 import jakarta.persistence.*;
 
@@ -18,7 +18,7 @@ public class PitchEntity {
     private CampaignEntity campaign;
 
     @Column
-    private String creatorId;
+    private String ownerId;
 
     @Column
     private String title;
@@ -28,9 +28,9 @@ public class PitchEntity {
 
     public PitchEntity() {}
 
-    public PitchEntity(CampaignEntity campaign, String creatorId, String title, String text) {
+    public PitchEntity(CampaignEntity campaign, String ownerId, String title, String text) {
         this.campaign = campaign;
-        this.creatorId = creatorId;
+        this.ownerId = ownerId;
         this.title = title;
         this.text = text;
     }
@@ -51,12 +51,12 @@ public class PitchEntity {
         this.campaign = campaign;
     }
 
-    public String getCreatorId() {
-        return creatorId;
+    public String getOwnerId() {
+        return ownerId;
     }
 
-    public void setCreatorId(String creatorId) {
-        this.creatorId = creatorId;
+    public void setOwnerId(String ownerId) {
+        this.ownerId = ownerId;
     }
 
     public String getTitle() {
@@ -79,12 +79,12 @@ public class PitchEntity {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         PitchEntity that = (PitchEntity) o;
-        return Objects.equals(id, that.id) && Objects.equals(campaign, that.campaign) && Objects.equals(creatorId, that.creatorId) && Objects.equals(title, that.title) && Objects.equals(text, that.text);
+        return Objects.equals(id, that.id) && Objects.equals(campaign, that.campaign) && Objects.equals(ownerId, that.ownerId) && Objects.equals(title, that.title) && Objects.equals(text, that.text);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, campaign, creatorId, title, text);
+        return Objects.hash(id, campaign, ownerId, title, text);
     }
 
     @Override
@@ -92,7 +92,7 @@ public class PitchEntity {
         return "PitchEntity{" +
                 "id=" + id +
                 ", campaign=" + campaign +
-                ", creatorId='" + creatorId + '\'' +
+                ", creatorId='" + ownerId + '\'' +
                 ", title='" + title + '\'' +
                 ", text='" + text + '\'' +
                 '}';

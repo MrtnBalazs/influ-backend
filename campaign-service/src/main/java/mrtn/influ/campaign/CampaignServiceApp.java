@@ -1,8 +1,8 @@
 package mrtn.influ.campaign;
 
-import mrtn.influ.campaign.dao.CampaignRepository;
-import mrtn.influ.campaign.entity.CampaignEntity;
-import mrtn.influ.campaign.entity.PitchEntity;
+import mrtn.influ.campaign.dao.repository.CampaignRepository;
+import mrtn.influ.campaign.dao.entity.CampaignEntity;
+import mrtn.influ.campaign.dao.entity.PitchEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -24,13 +24,12 @@ public class CampaignServiceApp implements CommandLineRunner {
         CampaignEntity campaign = new CampaignEntity();
         campaign.setTitle("Test Campaign");
         campaign.setDescription("Test description");
-        campaign.setUserId("username");
-        campaign.setMaxFee(5);
-        campaign.setMinFee(1);
+        campaign.setOwnerId("username");
+        campaign.setFee(5);
         campaign.setPitches(new ArrayList<>());
         PitchEntity pitchEntity = new PitchEntity();
         pitchEntity.setCampaign(campaign);
-        pitchEntity.setCreatorId("username1");
+        pitchEntity.setOwnerId("username1");
         pitchEntity.setText("Test pitch text");
         pitchEntity.setTitle("Test pitch title");
         campaign.getPitches().add(pitchEntity);
@@ -38,17 +37,15 @@ public class CampaignServiceApp implements CommandLineRunner {
         CampaignEntity campaign2 = new CampaignEntity();
         campaign2.setTitle("Test campaign2");
         campaign2.setDescription("Test description2");
-        campaign2.setUserId("username");
-        campaign2.setMaxFee(5);
-        campaign2.setMinFee(1);
+        campaign2.setOwnerId("username");
+        campaign2.setFee(5);
 
         CampaignEntity campaign3 = new CampaignEntity();
         campaign3.setTitle("Test campaign3");
         campaign3.setDescription("Test description3");
-        campaign3.setUserId("username2");
-        campaign3.setMaxFee(5);
-        campaign3.setMinFee(1);
-        campaign3.getFavoritedBy().add("username");
+        campaign3.setOwnerId("username2");
+        campaign3.setFee(5);
+        //campaign3.getFavoritedBy().add("username");
 
         campaignRepository.save(campaign);
         campaignRepository.save(campaign2);

@@ -1,50 +1,52 @@
 package mrtn.influ.campaign.endpoint;
 
-
-import mrtn.influ.campaign.business.service.CampaignService;
+import jakarta.transaction.Transactional;
+import mrtn.influ.campaign.service.CampaignService;
 import mrtn.influ.campaign.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:4200") // TODO only for testing without gateway
-@RestController
-@RequestMapping("/api/v1/campaigns")
-public class CampaignController {
+@Controller
+public class CampaignController implements CampaignApi {
     public static final String USER_ID_HEADER = "X-User-Id";
 
     @Autowired
     private CampaignService campaignService;
 
-    @GetMapping()
+    @Override
+    @Transactional
+    public ResponseEntity<Void> createCampaign(String xUserId, CreateCampaignRequest createCampaignRequest) {
+        campaignService.saveCampaign(createCampaignRequest, xUserId);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @Override
+    @Transactional
+    public ResponseEntity<Void> deleteCampaign(Integer id, String xUserId) {
+        campaignService.deleteCampaign(id, xUserId);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @Override
     public ResponseEntity<GetAllCampaignsResponse> getAllCampaigns() {
         return ResponseEntity.ok(new GetAllCampaignsResponse(campaignService.getAllCampaign()));
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<GetCampaignResponse> getCampaign(@PathVariable(name = "id") Long id, @RequestHeader(name = USER_ID_HEADER, required = false) String userId) {
-        CampaignDto campaignDto = campaignService.getCampaignById(id, userId);
+    @Override
+    public ResponseEntity<GetAllCampaignsForUserResponse> getAllCampaignsForUser(String xUserId) {
+        List<Campaign> campaigns = campaignService.getCampaignsForUser(xUserId);
+        return new ResponseEntity<>(new GetAllCampaignsForUserResponse(campaigns), HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<GetCampaignResponse> getCampaign(Integer id) {
+        Campaign campaignDto = campaignService.getCampaignById(id.longValue());
         return ResponseEntity.ok(new GetCampaignResponse(campaignDto));
-    }
-
-    @GetMapping("/user")
-    public ResponseEntity<GetCampaignForUserResponse> getCampaignsForUser(@RequestHeader(USER_ID_HEADER) String userId) {
-        List<CampaignDto> campaignDtos = campaignService.getCampaignsForUser(userId);
-        return new ResponseEntity<>(new GetCampaignForUserResponse(campaignDtos), HttpStatus.OK);
-    }
-
-    @GetMapping("/saved")
-    public ResponseEntity<GetCampaignForUserResponse> getSavedCampaigns(@RequestHeader(USER_ID_HEADER) String userId) {
-        List<CampaignDto> campaignDtos = campaignService.getSavedCampaignsForUser(userId);
-        return new ResponseEntity<>(new GetCampaignForUserResponse(campaignDtos), HttpStatus.OK);
-    }
-
-    @PostMapping("/create")
-    public ResponseEntity<Void> createCampaign(@RequestBody CreateCampaignRequest createCampaignRequest, @RequestHeader(USER_ID_HEADER) String userId) {
-        campaignService.saveCampaign(createCampaignRequest, userId);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 }

@@ -76,8 +76,8 @@
                                 <interfaceOnly>true</interfaceOnly>
                                 <useTags>true</useTags>
                                 <useSpringController>true</useSpringController>
-                                <apiPackage>mrtn.influ.auth.endpoint</apiPackage>
-                                <modelPackage>mrtn.influ.auth.dto</modelPackage>
+                                <apiPackage>mrtn.influ.campaign.endpoint</apiPackage>
+                                <modelPackage>mrtn.influ.campaign.dto</modelPackage>
                                 <generateBuilders>true</generateBuilders>
                                 <!-- <useSpringBuiltInValidation>true</useSpringBuiltInValidation> -->
                                 <!-- <performBeanValidation>true</performBeanValidation> -->
