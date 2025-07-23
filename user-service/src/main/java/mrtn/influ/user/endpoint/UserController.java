@@ -1,6 +1,6 @@
 package mrtn.influ.user.endpoint;
 
-import mrtn.influ.user.business.service.UserService;
+import mrtn.influ.user.service.UserService;
 import mrtn.influ.user.dto.CreateUserRequest;
 import mrtn.influ.user.dto.GetUserResponse;
 import mrtn.influ.user.log.LogRequestResponse;

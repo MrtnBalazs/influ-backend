@@ -1,4 +1,4 @@
-package mrtn.influ.user.entity;
+package mrtn.influ.user.dao.entity;
 
 import jakarta.persistence.*;
 
