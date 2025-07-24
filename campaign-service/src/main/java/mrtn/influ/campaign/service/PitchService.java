@@ -6,6 +6,7 @@ import mrtn.influ.campaign.dao.repository.CampaignRepository;
 import mrtn.influ.campaign.dao.repository.PitchRepository;
 import mrtn.influ.campaign.dto.CreatePitchRequest;
 import mrtn.influ.campaign.dto.Pitch;
+import mrtn.influ.campaign.exception.ErrorCode;
 import mrtn.influ.campaign.mapper.PitchMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,21 +24,18 @@ public class PitchService {
     private PitchMapper pitchMapper;
 
     public void createPitch(CreatePitchRequest createPitchRequest, String userId) {
-        // TODO validation rq
-        // TODO exception handling
         CampaignEntity campaignEntity = campaignRepository
                 .findById(createPitchRequest.getCampaignId().longValue())
-                .orElseThrow(() -> new RuntimeException("Could not find campaign with id:%d".formatted(createPitchRequest.getCampaignId())));
+                .orElseThrow(() -> ErrorCode.CAMPAIGN_NOT_FOUND.toException(createPitchRequest.getCampaignId().toString()));
 
         PitchEntity pitchEntity = pitchMapper.mapCreatePitchRequest(createPitchRequest, campaignEntity, userId);
         pitchRepository.save(pitchEntity);
     }
 
     public void deletePitch(Integer id, String xUserId) {
-        // TODO exception handling
-        PitchEntity pitchEntity = pitchRepository.findById(id.longValue()).orElseThrow(() -> new RuntimeException());
+        PitchEntity pitchEntity = pitchRepository.findById(id.longValue()).orElseThrow(() -> ErrorCode.PITCH_NOT_FOUND.toException(id.toString()));
         if(!pitchEntity.getOwnerId().equals(xUserId))
-            throw new RuntimeException();
+            ErrorCode.NOT_AUTHORISED_TO_DELETE.throwException(id.toString());
         pitchRepository.delete(pitchEntity);
     }
 

@@ -3,6 +3,7 @@ package mrtn.influ.campaign.service;
 import mrtn.influ.campaign.dao.entity.CampaignEntity;
 import mrtn.influ.campaign.dao.repository.CampaignRepository;
 import mrtn.influ.campaign.dto.Campaign;
+import mrtn.influ.campaign.exception.ErrorCode;
 import mrtn.influ.campaign.mapper.CampaignMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,8 +23,7 @@ public class CampaignService {
     }
 
     public Campaign getCampaignById(Long id) {
-        // TODO better exception handling
-        CampaignEntity campaignEntity = campaignRepository.findById(id).orElseThrow(() -> new RuntimeException("Could not find campaign for id: %d".formatted(id)));
+        CampaignEntity campaignEntity = campaignRepository.findById(id).orElseThrow(() -> ErrorCode.CAMPAIGN_NOT_FOUND.toException(id.toString()));
         return campaignMapper.mapCampaign(campaignEntity);
     }
 
@@ -38,15 +38,11 @@ public class CampaignService {
     }
 
     public void deleteCampaign(Integer id, String ownerId) {
-        // TODO validate rq
-        CampaignEntity campaignEntity = campaignRepository.findById(id.longValue()).orElseThrow(() -> {
-            // TODO not found exception
-            return new RuntimeException();
-        });
+        CampaignEntity campaignEntity = campaignRepository.findById(id.longValue()).orElseThrow(() -> ErrorCode.CAMPAIGN_NOT_FOUND.toException(id.toString()));
         if (campaignEntity.getOwnerId().equals(ownerId)) {
             campaignRepository.delete(campaignEntity);
         } else {
-            // TODO authorization exception
+            ErrorCode.NOT_AUTHORISED_TO_DELETE.throwException(id.toString());
         }
     }
 
