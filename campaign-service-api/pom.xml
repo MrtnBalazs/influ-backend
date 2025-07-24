@@ -79,8 +79,6 @@
                                 <apiPackage>mrtn.influ.campaign.endpoint</apiPackage>
                                 <modelPackage>mrtn.influ.campaign.dto</modelPackage>
                                 <generateBuilders>true</generateBuilders>
-                                <!-- <useSpringBuiltInValidation>true</useSpringBuiltInValidation> -->
-                                <!-- <performBeanValidation>true</performBeanValidation> -->
                             </configOptions>
                         </configuration>
                     </execution>
