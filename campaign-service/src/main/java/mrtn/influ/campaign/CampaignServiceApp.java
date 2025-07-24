@@ -24,12 +24,14 @@ public class CampaignServiceApp implements CommandLineRunner {
         CampaignEntity campaign = new CampaignEntity();
         campaign.setTitle("Test Campaign");
         campaign.setDescription("Test description");
-        campaign.setOwnerId("username");
+        campaign.setOwnerId("email");
+        campaign.setContentGuideline("contentGuideline");
         campaign.setFee(5);
+        campaign.setCampaignType("PRODUCT_FOR_POST");
         campaign.setPitches(new ArrayList<>());
         PitchEntity pitchEntity = new PitchEntity();
         pitchEntity.setCampaign(campaign);
-        pitchEntity.setOwnerId("username1");
+        pitchEntity.setOwnerId("email");
         pitchEntity.setText("Test pitch text");
         pitchEntity.setTitle("Test pitch title");
         campaign.getPitches().add(pitchEntity);
@@ -37,13 +39,17 @@ public class CampaignServiceApp implements CommandLineRunner {
         CampaignEntity campaign2 = new CampaignEntity();
         campaign2.setTitle("Test campaign2");
         campaign2.setDescription("Test description2");
-        campaign2.setOwnerId("username");
+        campaign2.setOwnerId("email2");
+        campaign2.setCampaignType("AFFILIATE");
+        campaign2.setContentGuideline("contentGuideline2");
         campaign2.setFee(5);
 
         CampaignEntity campaign3 = new CampaignEntity();
         campaign3.setTitle("Test campaign3");
         campaign3.setDescription("Test description3");
-        campaign3.setOwnerId("username2");
+        campaign3.setCampaignType("PAID_POST");
+        campaign3.setContentGuideline("contentGuideline3");
+        campaign3.setOwnerId("email3");
         campaign3.setFee(5);
         //campaign3.getFavoritedBy().add("username");
 

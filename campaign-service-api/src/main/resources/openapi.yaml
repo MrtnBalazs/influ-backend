@@ -295,12 +295,9 @@ components:
     CreateCampaignRequest:
       type: object
       required:
-        - ownerId
         - title
         - campaignType
       properties:
-        ownerId:
-          type: string
         title:
           type: string
         description:

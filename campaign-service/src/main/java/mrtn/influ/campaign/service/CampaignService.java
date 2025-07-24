@@ -33,7 +33,6 @@ public class CampaignService {
     }
 
     public void saveCampaign(mrtn.influ.campaign.dto.CreateCampaignRequest createCampaignRequest, String ownerId) {
-        // TODO validate rq
         CampaignEntity campaignEntity = campaignMapper.mapCreateCampaignRequest(createCampaignRequest, ownerId);
         campaignRepository.save(campaignEntity);
     }

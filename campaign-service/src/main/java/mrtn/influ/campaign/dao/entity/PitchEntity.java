@@ -35,6 +35,11 @@ public class PitchEntity {
         this.text = text;
     }
 
+    @PreRemove
+    private void removeFromCampaign() {
+        campaign.getPitches().remove(this);
+    }
+
     public Long getId() {
         return id;
     }
@@ -91,7 +96,6 @@ public class PitchEntity {
     public String toString() {
         return "PitchEntity{" +
                 "id=" + id +
-                ", campaign=" + campaign +
                 ", creatorId='" + ownerId + '\'' +
                 ", title='" + title + '\'' +
                 ", text='" + text + '\'' +
