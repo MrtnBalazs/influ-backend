@@ -24,6 +24,6 @@ public enum ErrorCode {
     }
 
     public RuntimeException toException(String... arg) {
-        throw new BusinessException(this, message.formatted((Object[]) arg));
+        return new BusinessException(this, message.formatted((Object[]) arg));
     }
 }

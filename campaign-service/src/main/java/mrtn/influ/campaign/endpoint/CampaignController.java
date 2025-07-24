@@ -28,6 +28,7 @@ public class CampaignController implements CampaignApi {
     }
 
 
+    @LogRequestResponse
     @Transactional
     @Override
     public ResponseEntity<Void> deleteCampaign(Integer id, String xUserId) {

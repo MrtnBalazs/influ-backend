@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 public class ControllerLoggingAspect {
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
-    @Around("@annotation(mrtn.influ.auth.log.LogRequestResponse)")
+    @Around("@annotation(mrtn.influ.campaign.log.LogRequestResponse)")
     public Object logController(ProceedingJoinPoint joinPoint) throws Throwable {
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
         String methodName = signature.getDeclaringTypeName() + "." + signature.getName();
