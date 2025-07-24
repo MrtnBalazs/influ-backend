@@ -1,0 +1,273 @@
+{
+	"info": {
+		"_postman_id": "c5cfce13-f9f7-446d-8e1a-a67a4cd65519",
+		"name": "Campaign-service",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "18489202"
+	},
+	"item": [
+		{
+			"name": "campaign/",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-User-Id",
+						"value": "username",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8083/api/v1/campaigns",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8083",
+					"path": [
+						"api",
+						"v1",
+						"campaigns"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "campaign/{id}",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-User-Id",
+						"value": "username",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8083/api/v1/campaigns/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8083",
+					"path": [
+						"api",
+						"v1",
+						"campaigns",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "campaign/user",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-User-Id",
+						"value": "username",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8083/api/v1/campaigns/user",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8083",
+					"path": [
+						"api",
+						"v1",
+						"campaigns",
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "campaign/saved",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-User-Id",
+						"value": "username",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8083/api/v1/campaigns/saved",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8083",
+					"path": [
+						"api",
+						"v1",
+						"campaigns",
+						"saved"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "campaign/create",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-User-Id",
+						"value": "username",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"Title\",\r\n    \"description\": \"Description\",\r\n    \"maxFee\": \"3\",\r\n    \"minFee\": \"1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8083/api/v1/campaigns/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8083",
+					"path": [
+						"api",
+						"v1",
+						"campaigns",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "campaign/pitches/{id}",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8083/api/v1/campaigns/pitches/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8083",
+					"path": [
+						"api",
+						"v1",
+						"campaigns",
+						"pitches",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "campaign/pitches/user",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-User-Id",
+						"value": "username1",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8083/api/v1/campaigns/pitches/user",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8083",
+					"path": [
+						"api",
+						"v1",
+						"campaigns",
+						"pitches",
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "campaign/pitches/create",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-User-Id",
+						"value": "username1",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"campaignId\": \"2\",\r\n    \"title\": \"Pitch title\",\r\n    \"text\": \"Pitch text\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8083/api/v1/campaigns/pitches/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8083",
+					"path": [
+						"api",
+						"v1",
+						"campaigns",
+						"pitches",
+						"create"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
