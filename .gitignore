@@ -2,9 +2,8 @@
 /auth/target
 /auth-service/target
 /auth-service-api/target
-/gateway-application/target
-/eureka/target
-/testService/target
+/gateway-service/target
+/eureka-service/target
 /campaign-service/target
 /campaign-service-api/target
 /user-service-api/target
