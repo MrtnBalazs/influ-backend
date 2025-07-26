@@ -39,6 +39,8 @@ public class AuthServiceApplication implements CommandLineRunner {
         user2.setEmail("admin");
         user2.setPassword(passwordEncoder.encode("admin"));
 
+        userRepository.deleteAll();
+
         userRepository.save(user1);
         userRepository.save(user2);
 

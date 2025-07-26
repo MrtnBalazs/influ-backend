@@ -1,5 +1,6 @@
 package mrtn.influ.user;
 
+import mrtn.influ.user.dao.repository.UserRepository;
 import mrtn.influ.user.service.UserService;
 import mrtn.influ.user.dto.CreateUserRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,8 @@ public class UserServiceApp implements CommandLineRunner {
 
     @Autowired
     public UserService userService;
+    @Autowired
+    public UserRepository userRepository;
 
     public static void main(String[] args) {
         SpringApplication.run(UserServiceApp.class, args);
@@ -19,6 +22,8 @@ public class UserServiceApp implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
+        userRepository.deleteAll();
+
         userService.createUser("emailBrand", CreateUserRequest.builder().username("usernameBrand").userType("BRAND").build());
         userService.createUser("emailInfluencer", CreateUserRequest.builder().username("usernameInfluencer").userType("INFLUENCER").build());
     }

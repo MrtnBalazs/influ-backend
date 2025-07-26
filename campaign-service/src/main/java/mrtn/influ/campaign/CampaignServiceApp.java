@@ -3,6 +3,7 @@ package mrtn.influ.campaign;
 import mrtn.influ.campaign.dao.entity.CampaignEntity;
 import mrtn.influ.campaign.dao.entity.PitchEntity;
 import mrtn.influ.campaign.dao.repository.CampaignRepository;
+import mrtn.influ.campaign.dao.repository.PitchRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -18,6 +19,8 @@ public class CampaignServiceApp implements CommandLineRunner {
 
     @Autowired
     private CampaignRepository campaignRepository;
+    @Autowired
+    private PitchRepository pitchRepository;
 
     @Override
     public void run(String... args) {
@@ -52,6 +55,9 @@ public class CampaignServiceApp implements CommandLineRunner {
         campaign3.setOwnerId("email3");
         campaign3.setFee(5);
         //campaign3.getFavoritedBy().add("username");
+
+        campaignRepository.deleteAll();
+        pitchRepository.deleteAll();
 
         campaignRepository.save(campaign);
         campaignRepository.save(campaign2);
