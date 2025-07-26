@@ -6,7 +6,7 @@
     <parent>
         <groupId>mrtn.influ</groupId>
         <artifactId>influ-backend</artifactId>
-        <version>0.1.0</version>
+        <version>0.0.1</version>
     </parent>
 
     <groupId>mrtn.influ.user</groupId>

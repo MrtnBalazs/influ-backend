@@ -1,7 +1,7 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="ApiGatewayApplication" type="Application" factoryName="Application" nameIsGenerated="true">
     <option name="MAIN_CLASS_NAME" value="mrtn.influ.gateway.ApiGatewayApplication" />
-    <module name="gateway-application" />
+    <module name="gateway-service" />
     <extension name="coverage">
       <pattern>
         <option name="PATTERN" value="mrtn.influ.gateway.*" />

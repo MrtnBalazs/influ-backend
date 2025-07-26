@@ -1,11 +1,11 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="UserServiceApp gateway" type="Application" factoryName="Application">
-    <option name="MAIN_CLASS_NAME" value="mrtn.influ.user.UserServiceApp" />
-    <module name="user-service" />
+  <configuration default="false" name="Campaign gateway" type="Application" factoryName="Application">
+    <option name="MAIN_CLASS_NAME" value="mrtn.influ.campaign.CampaignServiceApp" />
+    <module name="campaign-service" />
     <option name="VM_PARAMETERS" value="-Dspring.profiles.active=gateway" />
     <extension name="coverage">
       <pattern>
-        <option name="PATTERN" value="mrtn.influ.user.*" />
+        <option name="PATTERN" value="mrtn.influ.campaign.*" />
         <option name="ENABLED" value="true" />
       </pattern>
     </extension>

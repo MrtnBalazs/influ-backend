@@ -1,11 +1,11 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="CampaignServiceApp local" type="Application" factoryName="Application">
-    <option name="MAIN_CLASS_NAME" value="mrtn.influ.campaign.CampaignServiceApp" />
-    <module name="campaign-service" />
+  <configuration default="false" name="User local" type="Application" factoryName="Application">
+    <option name="MAIN_CLASS_NAME" value="mrtn.influ.user.UserServiceApp" />
+    <module name="user-service" />
     <option name="VM_PARAMETERS" value="-Dspring.profiles.active=local" />
     <extension name="coverage">
       <pattern>
-        <option name="PATTERN" value="mrtn.influ.campaign.*" />
+        <option name="PATTERN" value="mrtn.influ.user.*" />
         <option name="ENABLED" value="true" />
       </pattern>
     </extension>
