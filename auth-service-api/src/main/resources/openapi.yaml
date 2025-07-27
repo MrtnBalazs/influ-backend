@@ -90,8 +90,16 @@ components:
           type: string
     LoginResponse:
       type: object
+      required:
+        - email
+        - authToken
+        - userType
       properties:
+        email:
+          type: string
         authToken:
+          type: string
+        userType:
           type: string
     RegisterRequest:
       type: object

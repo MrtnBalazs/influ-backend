@@ -3,6 +3,7 @@ package mrtn.influ.auth.client;
 import mrtn.influ.auth.exception.ErrorCode;
 import mrtn.influ.auth.util.Consts;
 import mrtn.influ.user.dto.CreateUserRequest;
+import mrtn.influ.user.dto.GetUserResponse;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,9 +36,27 @@ public class UserServiceClient {
                     .toBodilessEntity();
 
             if(!response.getStatusCode().equals(HttpStatus.CREATED))
-                ErrorCode.USER_SERVICE_ERROR.toException();
+                ErrorCode.USER_SERVICE_ERROR.throwException();
         } catch (Exception exception) {
-            ErrorCode.TECHNICAL_ERROR.toException();
+            ErrorCode.TECHNICAL_ERROR.throwException();
+        }
+    }
+
+    public GetUserResponse callGetUser(String email) {
+        try {
+            ResponseEntity<GetUserResponse> response = restClient
+                    .get()
+                    .uri("/api/v1/users/user")
+                    .header(Consts.X_USER_ID_HEADER, email)
+                    .retrieve()
+                    .toEntity(GetUserResponse.class);
+
+            if(!response.getStatusCode().equals(HttpStatus.OK))
+                ErrorCode.USER_SERVICE_ERROR.throwException();
+
+            return response.getBody();
+        } catch (Exception exception) {
+            throw ErrorCode.TECHNICAL_ERROR.toException();
         }
     }
 }

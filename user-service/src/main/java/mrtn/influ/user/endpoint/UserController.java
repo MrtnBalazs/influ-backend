@@ -7,10 +7,8 @@ import mrtn.influ.user.log.LogRequestResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
 
 
-@CrossOrigin(origins = "http://localhost:4200") // TODO only for testing without gateway
 @Controller
 public class UserController implements UserApi {
 

@@ -11,10 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
 
 @Controller
-@CrossOrigin(origins = "http://localhost:4200") // TODO set it in properties file
 public class AuthController implements AuthApi {
     @Autowired
     private JwtService jwtService;
@@ -28,8 +26,8 @@ public class AuthController implements AuthApi {
     @LogRequestResponse
     @Override
     public ResponseEntity<LoginResponse> loginUser(LoginRequest loginRequest) {
-        final String authToken = jwtService.createAuthToken(loginRequest);
-        return ResponseEntity.ok(LoginResponse.builder().authToken(authToken).build());
+        LoginResponse loginResponse = userService.loginUser(loginRequest);
+        return ResponseEntity.ok(loginResponse);
     }
 
     @LogRequestResponse

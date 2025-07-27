@@ -23,11 +23,6 @@ public class JwtService {
     private JwtUtil jwtUtil;
 
     public String createAuthToken(LoginRequest loginRequest) {
-        if(Objects.isNull(loginRequest.getEmail()))
-            ErrorCode.FIELD_MISSING.toException("email");
-        if(Objects.isNull(loginRequest.getPassword()))
-            ErrorCode.FIELD_MISSING.toException("password");
-
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
 

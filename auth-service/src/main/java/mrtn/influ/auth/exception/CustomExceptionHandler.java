@@ -27,7 +27,7 @@ public class CustomExceptionHandler {
                 .body(exception.getMessage());
     }
 
-    @ExceptionHandler({RuntimeException.class})
+    @ExceptionHandler({Exception.class})
     public ResponseEntity<Object> handleRuntimeException(Exception exception) {
         return ResponseEntity
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)
