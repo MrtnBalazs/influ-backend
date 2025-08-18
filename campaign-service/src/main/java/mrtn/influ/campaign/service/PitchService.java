@@ -12,6 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
+
+import static mrtn.influ.campaign.exception.ErrorCode.NOT_AUTHORISED_TO_GET;
+import static mrtn.influ.campaign.exception.ErrorCode.PITCH_NOT_FOUND;
 
 @Service
 public class PitchService {
@@ -33,7 +37,7 @@ public class PitchService {
     }
 
     public void deletePitch(Integer id, String xUserId) {
-        PitchEntity pitchEntity = pitchRepository.findById(id.longValue()).orElseThrow(() -> ErrorCode.PITCH_NOT_FOUND.toException(id.toString()));
+        PitchEntity pitchEntity = pitchRepository.findById(id.longValue()).orElseThrow(() -> PITCH_NOT_FOUND.toException(id.toString()));
         if(!pitchEntity.getOwnerId().equals(xUserId))
             ErrorCode.NOT_AUTHORISED_TO_DELETE.throwException(id.toString());
         pitchRepository.delete(pitchEntity);
@@ -42,5 +46,13 @@ public class PitchService {
     public List<Pitch> getPitchesForUser(String userId) {
         List<PitchEntity> pitchEntities = pitchRepository.findByOwnerId(userId);
         return pitchMapper.mapPitchEntities(pitchEntities);
+    }
+
+    public Pitch getPitch(String userId, Integer pitchId) {
+        PitchEntity pitchEntity = pitchRepository.findById(pitchId).orElseThrow(() -> PITCH_NOT_FOUND.toException(pitchId.toString()));
+        if(!pitchEntity.getOwnerId().equals(userId)) {
+            NOT_AUTHORISED_TO_GET.throwException(userId);
+        }
+        return pitchMapper.mapPitchEntity(pitchEntity);
     }
 }

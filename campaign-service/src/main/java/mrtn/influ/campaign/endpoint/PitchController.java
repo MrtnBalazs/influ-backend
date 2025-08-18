@@ -2,6 +2,7 @@ package mrtn.influ.campaign.endpoint;
 
 import jakarta.transaction.Transactional;
 import mrtn.influ.campaign.dto.CreatePitchRequest;
+import mrtn.influ.campaign.dto.GetPitchResponse;
 import mrtn.influ.campaign.dto.GetPitchesForUserResponse;
 import mrtn.influ.campaign.dto.Pitch;
 import mrtn.influ.campaign.log.LogRequestResponse;
@@ -40,6 +41,13 @@ public class PitchController implements PitchApi {
     public ResponseEntity<GetPitchesForUserResponse> getPitchesForUser(String xUserId) {
         List<Pitch> pitchList = pitchService.getPitchesForUser(xUserId);
         return ResponseEntity.status(HttpStatus.OK).body(new GetPitchesForUserResponse().pitchList(pitchList));
+    }
+
+    @LogRequestResponse
+    @Override
+    public ResponseEntity<GetPitchResponse> getPitch(Integer id, String xUserId) {
+        Pitch pitch = pitchService.getPitch(xUserId, id);
+        return ResponseEntity.status(HttpStatus.OK).body(new GetPitchResponse().pitch(pitch));
     }
 
 }

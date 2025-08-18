@@ -178,6 +178,35 @@ paths:
           description: Server error
 
   /api/v1/campaigns/pitches/{id}:
+    get:
+      summary: Get pitch
+      operationId: getPitch
+      tags:
+        - pitch
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: X-User-Id
+          in: header
+          required: true
+          description: Id of user provided by the gateway
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Pitch
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetPitchResponse'
+        '400':
+          description: Request validation error
+        '500':
+          description: Server error
+
     delete:
       summary: Delete pitch by id
       operationId: deletePitch
@@ -292,6 +321,7 @@ components:
           type: integer
         text:
           type: string
+
     CreateCampaignRequest:
       type: object
       required:
@@ -319,3 +349,11 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Pitch'
+
+    GetPitchResponse:
+      type: object
+      required:
+        - pitchList
+      properties:
+        pitch:
+          $ref: '#/components/schemas/Pitch'
