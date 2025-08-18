@@ -107,7 +107,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"email\": \"email2\",\r\n    \"password\": \"password\",\r\n    \"username\": \"username\",\r\n    \"userType\": \"BRAND\"\r\n}",
+					"raw": "{\r\n    \"email\": \"email4\",\r\n    \"password\": \"password\",\r\n    \"username\": \"username\",\r\n    \"userType\": \"BRAND\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"

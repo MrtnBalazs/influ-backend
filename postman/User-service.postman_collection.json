@@ -16,13 +16,13 @@
 				"header": [
 					{
 						"key": "X-User-Id",
-						"value": "email",
+						"value": "email55",
 						"type": "text"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"username\": \"username\",\r\n    \"userType\": \"BRAND\"\r\n}",
+					"raw": "{\r\n    \"username\": \"username123\",\r\n    \"userType\": \"BRAND\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -55,7 +55,7 @@
 				"header": [
 					{
 						"key": "X-User-Id",
-						"value": "emailInfluencer",
+						"value": "email",
 						"type": "text"
 					}
 				],
