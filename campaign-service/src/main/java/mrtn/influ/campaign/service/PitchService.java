@@ -28,6 +28,7 @@ public class PitchService {
     private PitchMapper pitchMapper;
 
     public void createPitch(CreatePitchRequest createPitchRequest, String userId) {
+        // TODO megnézni, hogy már nem csinált-e pitch-t
         CampaignEntity campaignEntity = campaignRepository
                 .findById(createPitchRequest.getCampaignId().longValue())
                 .orElseThrow(() -> ErrorCode.CAMPAIGN_NOT_FOUND.toException(createPitchRequest.getCampaignId().toString()));
