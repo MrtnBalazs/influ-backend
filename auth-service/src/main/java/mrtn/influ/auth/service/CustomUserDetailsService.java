@@ -22,4 +22,9 @@ public class CustomUserDetailsService implements UserDetailsService {
         User user = optionalUser.orElseThrow(() -> new UsernameNotFoundException("User not found with username: %s".formatted(email)));
         return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), new ArrayList<>());
     }
+
+    public User loadUserEntityByUsername(String email) throws UsernameNotFoundException {
+        Optional<User> optionalUser = userRepository.findByEmail(email);
+        return optionalUser.orElseThrow(() -> new UsernameNotFoundException("User not found with username: %s".formatted(email)));
+    }
 }

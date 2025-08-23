@@ -15,6 +15,7 @@ public class CustomExceptionHandler {
 
     @ExceptionHandler({BusinessException.class})
     public ResponseEntity<Object> handleBusinessExceptions(BusinessException businessException) {
+        LOGGER.error("Business exception caught", businessException);
         return ResponseEntity
                 .status(businessException.getErrorCode().getHttpStatus())
                 .body(businessException.getMessage());
@@ -22,6 +23,7 @@ public class CustomExceptionHandler {
 
     @ExceptionHandler({AuthenticationException.class, BadCredentialsException.class})
     public ResponseEntity<Object> handleAuthExceptions(Exception exception) {
+        LOGGER.error("Auth exception caught", exception);
         return ResponseEntity
                 .status(HttpStatus.UNAUTHORIZED)
                 .body(exception.getMessage());
@@ -29,6 +31,7 @@ public class CustomExceptionHandler {
 
     @ExceptionHandler({Exception.class})
     public ResponseEntity<Object> handleRuntimeException(Exception exception) {
+        LOGGER.error("Runtime exception caught", exception);
         return ResponseEntity
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(exception.getMessage());

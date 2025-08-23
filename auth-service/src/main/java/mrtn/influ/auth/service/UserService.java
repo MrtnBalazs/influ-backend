@@ -40,7 +40,7 @@ public class UserService {
 
     private void saveUser (RegisterRequest registerRequest) {
         String password = passwordEncoder.encode(registerRequest.getPassword());
-        User user = new User(registerRequest.getEmail(), password, "USER");
+        User user = new User(registerRequest.getEmail(), password, registerRequest.getUserType().getValue(), "USER");
         userRepository.save(user);
     }
 

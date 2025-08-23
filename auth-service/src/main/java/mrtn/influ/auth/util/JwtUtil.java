@@ -3,10 +3,10 @@ package mrtn.influ.auth.util;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
+import mrtn.influ.auth.dao.entity.User;
 import mrtn.influ.auth.exception.ErrorCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
@@ -57,9 +57,11 @@ public class JwtUtil {
         return extractClaim(token, Claims::getExpiration);
     }
 
-    public String generateToken(UserDetails userDetails) {
+    public String generateToken(User userEntity) {
         Map<String, Object> claims = new HashMap<>();
-        return createToken(claims, userDetails.getUsername());
+        claims.put("type", userEntity.getType());
+        claims.put("role", userEntity.getRole());
+        return createToken(claims, userEntity.getEmail());
     }
 
     private String createToken(Map<String, Object> claims, String subject) {

@@ -13,14 +13,24 @@ public class User {
     private Long id;
     private String email;
     private String password;
+    private String type;
     private String role;
 
     public User() {}
 
-    public User(String email, String password, String role) {
+    public User(String email, String password, String type, String role) {
         this.email = email;
         this.password = password;
+        this.type = type;
         this.role = role;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public Long getId() {
@@ -59,11 +69,11 @@ public class User {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(id, user.id) && Objects.equals(email, user.email) && Objects.equals(password, user.password) && Objects.equals(role, user.role);
+        return Objects.equals(id, user.id) && Objects.equals(email, user.email) && Objects.equals(password, user.password) && Objects.equals(type, user.type) && Objects.equals(role, user.role);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, email, password, role);
+        return Objects.hash(id, email, password, type, role);
     }
 }
