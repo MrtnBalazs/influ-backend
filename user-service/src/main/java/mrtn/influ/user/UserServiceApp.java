@@ -25,6 +25,7 @@ public class UserServiceApp implements CommandLineRunner {
         userRepository.deleteAll();
 
         userService.createUser("emailBrand", CreateUserRequest.builder().username("usernameBrand").userType("BRAND").build());
+        userService.createUser("asd@asd", CreateUserRequest.builder().username("asd").userType("BRAND").build());
         userService.createUser("emailInfluencer", CreateUserRequest.builder().username("usernameInfluencer").userType("INFLUENCER").build());
     }
 }

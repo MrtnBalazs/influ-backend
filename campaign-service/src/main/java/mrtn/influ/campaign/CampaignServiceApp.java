@@ -54,10 +54,9 @@ public class CampaignServiceApp implements CommandLineRunner {
         campaign3.setContentGuideline("contentGuideline3");
         campaign3.setOwnerId("email3");
         campaign3.setFee(5);
-        //campaign3.getFavoritedBy().add("username");
 
-        campaignRepository.deleteAll();
-        pitchRepository.deleteAll();
+        //campaignRepository.deleteAll();
+        // TODO nem kell casacade miatt szerintem: pitchRepository.deleteAll();
 
         campaignRepository.save(campaign);
         campaignRepository.save(campaign2);
