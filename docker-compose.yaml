@@ -71,21 +71,7 @@ services:
       - SPRING_PROFILES_ACTIVE=docker
     depends_on:
       - eureka
-      - auth
-    networks:
-      - backend
-
-  auth:
-    image: auth-service:0.0.1
-    container_name: auth
-    ports:
-      - "8082:8082"
-    environment:
-      - SPRING_PROFILES_ACTIVE=docker
-    depends_on:
-      - eureka
-      - user
-      - postgres
+      - keycloak
     networks:
       - backend
 
