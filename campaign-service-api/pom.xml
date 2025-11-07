@@ -66,7 +66,7 @@
                             <goal>generate</goal>
                         </goals>
                         <configuration>
-                            <inputSpec>C:/projects/influ-backend/campaign-service-api/src/main/resources/openapi.yaml</inputSpec>
+                            <inputSpec>C:/Users/User/projects/influ-backend/campaign-service-api/src/main/resources/openapi.yaml</inputSpec>
                             <generatorName>spring</generatorName>
                             <configOptions>
                                 <annotationLibrary>swagger2</annotationLibrary>
@@ -88,8 +88,8 @@
     </build>
 
     <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 

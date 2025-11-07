@@ -12,6 +12,7 @@
         <module>eureka-service</module>
         <module>gateway-service</module>
         <module>auth-service</module>
+        <module>auth-service-api</module>
         <module>campaign-service</module>
         <module>user-service</module>
         <module>user-service-api</module>

@@ -22,10 +22,10 @@ public class UserServiceApp implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        userRepository.deleteAll();
-
-        userService.createUser("emailBrand", CreateUserRequest.builder().username("usernameBrand").userType("BRAND").build());
-        userService.createUser("asd@asd", CreateUserRequest.builder().username("asd").userType("BRAND").build());
-        userService.createUser("emailInfluencer", CreateUserRequest.builder().username("usernameInfluencer").userType("INFLUENCER").build());
+//        userRepository.deleteAll();
+//
+//        userService.createUser("emailBrand");
+//        userService.createUser("asd@asd");
+//        userService.createUser("emailInfluencer");
     }
 }
