@@ -92,6 +92,14 @@
                             </goals>
                         </execution>
                     </executions>
+                    <!-- TODO  Itt ezt valahogy jól beállítani, mert lezsedegeti a latest imaget és az mobil netről fájós -->
+                    <configuration>
+                        <image>
+                            <builder>paketobuildpacks/builder:base</builder>
+                            <!-- Optional: pin run-image too -->
+                            <runImage>paketobuildpacks/run:base-cnb</runImage>
+                        </image>
+                    </configuration>
                 </plugin>
             </plugins>
         </pluginManagement>

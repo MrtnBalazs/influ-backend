@@ -103,14 +103,14 @@ components:
     GetUserResponse:
       type: object
       required:
-        - username
+        - userId
         - email
         - settings
         - userType
       properties:
         email:
           type: string
-        username:
+        userId:
           type: string
         userType:
           type: string
