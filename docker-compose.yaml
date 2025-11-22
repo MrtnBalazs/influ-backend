@@ -53,7 +53,7 @@ services:
       - backend
 
   eureka:
-    image: eureka-service:0.0.1
+    image: eureka-service:latest
     container_name: eureka
     ports:
       - "8761:8761"
@@ -63,7 +63,7 @@ services:
       - backend
 
   gateway:
-    image: gateway-service:0.0.1
+    image: gateway-service:latest
     container_name: gateway
     ports:
       - "8081:8081"
@@ -76,7 +76,7 @@ services:
       - backend
 
   user:
-    image: user-service:0.0.1
+    image: user-service:latest
     container_name: user
     ports:
       - "8084:8084"
@@ -89,7 +89,7 @@ services:
       - backend
 
   campaign:
-    image: campaign-service:0.0.1
+    image: campaign-service:latest
     container_name: campaign
     ports:
       - "8083:8083"

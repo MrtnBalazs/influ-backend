@@ -1,7 +1,4 @@
 .idea
-/auth/target
-/auth-service/target
-/auth-service-api/target
 /gateway-service/target
 /eureka-service/target
 /campaign-service/target
