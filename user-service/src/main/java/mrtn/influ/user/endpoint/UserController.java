@@ -1,7 +1,7 @@
 package mrtn.influ.user.endpoint;
 
+import mrtn.influ.user.dto.SetUserDataRequest;
 import mrtn.influ.user.service.UserService;
-import mrtn.influ.user.dto.CreateUserRequest;
 import mrtn.influ.user.dto.GetUserResponse;
 import mrtn.influ.user.log.LogRequestResponse;
 import org.springframework.http.HttpStatus;
@@ -27,8 +27,15 @@ public class UserController implements UserApi {
 
     @LogRequestResponse
     @Override
-    public ResponseEntity<Void> createUser(String xUserId, CreateUserRequest createUserRequest) {
-        userService.createUser(xUserId, createUserRequest);
+    public ResponseEntity<Void> createUserFromEmail(String email) {
+        userService.createUser(email);
         return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @LogRequestResponse
+    @Override
+    public ResponseEntity<Void> setUserData(String email, SetUserDataRequest setUserDataRequest) {
+        userService.setUserData(email,setUserDataRequest);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 }

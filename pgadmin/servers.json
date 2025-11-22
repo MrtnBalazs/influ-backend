@@ -1,0 +1,14 @@
+{
+  "Servers": {
+    "1": {
+      "Name": "Influ Database",
+      "Group": "Servers",
+      "Host": "postgres",
+      "Port": 5432,
+      "MaintenanceDB": "influ",
+      "Username": "influ",
+      "SSLMode": "prefer",
+      "Comment": "Local Postgres instance for Influ app"
+    }
+  }
+}

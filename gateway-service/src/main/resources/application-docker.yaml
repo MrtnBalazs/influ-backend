@@ -15,14 +15,21 @@ spring:
               - POST
               - DELETE
               - PUT
+              - OPTIONS
             allowedHeaders: "*"
+            allowCredentials: true
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          # TODO change if frontend starts in container, bc issuer will be different when called from inside the docker-compose network
+          issuer-uri: http://localhost:8100/auth/realms/influ-realm
+          jwk-set-uri: http://keycloak:8080/auth/realms/influ-realm/protocol/openid-connect/certs
 
 eureka:
   client:
     serviceUrl:
       defaultZone: http://eureka:8761/eureka
-
-auth.service.verify.endpoint: http://auth-service/api/v1/auth/verify
 
 # Request response logging to debug
 logging.level.org.springframework.web.filter.CommonsRequestLoggingFilter: INFO

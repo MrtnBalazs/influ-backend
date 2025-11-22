@@ -11,7 +11,6 @@
     <modules>
         <module>eureka-service</module>
         <module>gateway-service</module>
-        <module>auth-service</module>
         <module>campaign-service</module>
         <module>user-service</module>
         <module>user-service-api</module>
@@ -79,16 +78,32 @@
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-maven-plugin</artifactId>
                     <version>${spring.version}</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-maven-plugin</artifactId>
-                    <version>${spring.version}</version>
                     <executions>
                         <execution>
                             <goals>
                                 <goal>build-image</goal>
                             </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <!-- Clean prune images -->
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>exec-maven-plugin</artifactId>
+                    <version>3.1.0</version>
+                    <executions>
+                        <execution>
+                            <id>cleanup-dangling-images</id>
+                            <phase>package</phase>
+                            <goals><goal>exec</goal></goals>
+                            <configuration>
+                                <executable>docker</executable>
+                                <arguments>
+                                    <argument>image</argument>
+                                    <argument>prune</argument>
+                                    <argument>-f</argument>
+                                </arguments>
+                            </configuration>
                         </execution>
                     </executions>
                 </plugin>

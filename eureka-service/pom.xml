@@ -14,8 +14,8 @@
     <version>0.0.1</version>
 
     <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -29,5 +29,30 @@
             <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <image>
+                        <!-- name and tag -->
+                        <name>eureka-service:latest</name>
+                        <!-- Pin the builder image version -->
+                        <builder>paketobuildpacks/builder-jammy-base:0.4.502</builder>
+                        <!-- Ensure it does NOT pull new versions -->
+                        <pullPolicy>IF_NOT_PRESENT</pullPolicy>
+                        <!-- Optional but recommended: pin the run image -->
+                        <runImage>paketobuildpacks/run-jammy-base:latest</runImage>
+                    </image>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

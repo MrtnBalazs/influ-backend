@@ -14,9 +14,9 @@
     <version>0.0.1</version>
 
     <properties>
-        <java.version>17</java.version>
-        <maven.compiler.target>17</maven.compiler.target>
-        <maven.compiler.source>17</maven.compiler.source>
+        <java.version>21</java.version>
+        <maven.compiler.target>21</maven.compiler.target>
+        <maven.compiler.source>21</maven.compiler.source>
         <spring.boot.version>3.2.4</spring.boot.version>
         <spring.cloud.version>2023.0.1</spring.cloud.version>
     </properties>
@@ -58,6 +58,22 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <image>
+                        <!-- name and tag -->
+                        <name>user-service:latest</name>
+                        <!-- Pin the builder image version -->
+                        <builder>paketobuildpacks/builder-jammy-base:0.4.502</builder>
+                        <!-- Ensure it does NOT pull new versions -->
+                        <pullPolicy>IF_NOT_PRESENT</pullPolicy>
+                        <!-- Optional but recommended: pin the run image -->
+                        <runImage>paketobuildpacks/run-jammy-base:latest</runImage>
+                    </image>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
             </plugin>
         </plugins>
     </build>

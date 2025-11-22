@@ -7,22 +7,16 @@ paths:
   /api/v1/users:
     post:
       summary: Create a new user
-      operationId: createUser
+      operationId: createUserFromEmail
       tags:
         - user
       parameters:
         - name: X-User-Id
           in: header
           required: true
-          description: Id of user provided by the gateway
+          description: Id of user provided by the gateway (email)
           schema:
             type: string
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/CreateUserRequest'
       responses:
         '201':
           description: User created
@@ -59,9 +53,43 @@ paths:
           description: User not found
         '500':
           description: Technical issue
+    put:
+      summary: Set user data
+      operationId: setUserData
+      tags:
+        - user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SetUserDataRequest'
+      parameters:
+        - name: X-User-Id
+          in: header
+          required: true
+          description: Id of user provided by the gateway (email)
+          schema:
+            type: string
+      responses:
+        '200':
+          description: User data set
+        '400':
+          description: Invalid request
+        '404':
+          description: User not found
+        '500':
+          description: Technical issue
 
 components:
   schemas:
+    SetUserDataRequest:
+      type: object
+      required:
+        - userType
+      properties:
+        userType:
+          type: string
     CreateUserRequest:
       type: object
       required:
@@ -75,14 +103,14 @@ components:
     GetUserResponse:
       type: object
       required:
-        - username
+        - userId
         - email
         - settings
         - userType
       properties:
         email:
           type: string
-        username:
+        userId:
           type: string
         userType:
           type: string
