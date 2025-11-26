@@ -2,8 +2,8 @@
 spring:
   datasource:
     url: jdbc:postgresql://postgres:5432/influ
-    username: influ
-    password: influ
+    username: user_service_user
+    password: user_service_password
   jpa:
     hibernate:
       ddl-auto: update

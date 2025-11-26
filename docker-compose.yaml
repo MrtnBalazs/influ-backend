@@ -40,8 +40,8 @@ services:
       KC_HTTP_RELATIVE_PATH: /auth
       KC_DB: postgres
       KC_DB_URL: jdbc:postgresql://postgres:5432/influ
-      KC_DB_USERNAME: influ
-      KC_DB_PASSWORD: influ
+      KC_DB_USERNAME: keycloak_user
+      KC_DB_PASSWORD: keycloak_password
     ports:
       - "8100:8080"
     volumes:
