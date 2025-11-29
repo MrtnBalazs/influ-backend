@@ -27,15 +27,15 @@ public class UserController implements UserApi {
 
     @LogRequestResponse
     @Override
-    public ResponseEntity<Void> createUserFromEmail(String email) {
-        userService.createUser(email);
+    public ResponseEntity<Void> createUserFromEmail(String username, String email) {
+        userService.createUser(email, username);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @LogRequestResponse
     @Override
-    public ResponseEntity<Void> setUserData(String email, SetUserDataRequest setUserDataRequest) {
-        userService.setUserData(email,setUserDataRequest);
+    public ResponseEntity<Void> setUserData(String username, SetUserDataRequest setUserDataRequest) {
+        userService.setUserData(username, setUserDataRequest);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 }

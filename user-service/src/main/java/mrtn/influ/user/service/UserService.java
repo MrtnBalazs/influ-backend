@@ -27,24 +27,24 @@ public class UserService {
         this.userMapper = userMapper;
     }
 
-    public GetUserResponse getUserByEmail(String email) {
-        UserEntity userEntity = userRepository.findUserByEmail(email).orElseThrow(() -> new UserNotFoundException("Could not find user with the email: %s".formatted(email)));
+    public GetUserResponse getUserByEmail(String username) {
+        UserEntity userEntity = userRepository.findUserByUsername(username).orElseThrow(() -> new UserNotFoundException("Could not find user with the username: %s".formatted(username)));
         return userMapper.mapUserEntityToUserDto(userEntity);
     }
 
-    public void createUser(String email) {
-        if(userRepository.findUserByEmail(email).isEmpty()){
-            userRepository.save(new UserEntity(email, UUID.randomUUID().toString(), null));
+    public void createUser(String email, String username) {
+        if(userRepository.findUserByEmail(email).isEmpty() && userRepository.findUserByUsername(username).isEmpty()){
+            userRepository.save(new UserEntity(email, username, null));
         } else {
-            throw new UserAlreadyExistsException("User already exists, email: %s".formatted(email));
+            throw new UserAlreadyExistsException("User already exists, email: %s, username: %s".formatted(email, username));
         }
     }
 
-    public void setUserData(String email, SetUserDataRequest setUserDataRequest) {
+    public void setUserData(String username, SetUserDataRequest setUserDataRequest) {
         if(Objects.isNull(setUserDataRequest.getUserType()))
             throw new InvalidRequestException("Missing userType!");
 
-        Optional<UserEntity> user = userRepository.findUserByEmail(email);
+        Optional<UserEntity> user = userRepository.findUserByUsername(username);
         user.ifPresentOrElse(userEntity -> {
             if(Objects.isNull(userEntity.getUserType())) {
                 userEntity.setUserType(UserType.valueOf(setUserDataRequest.getUserType()));
@@ -53,7 +53,7 @@ public class UserService {
                 throw new NotModifiableDataException("User type is not modifiable");
             }
         }, () -> {
-            throw new UserNotFoundException("User is not found, email: %s".formatted(email));
+            throw new UserNotFoundException("User is not found, username: %s".formatted(username));
         });
     }
 }

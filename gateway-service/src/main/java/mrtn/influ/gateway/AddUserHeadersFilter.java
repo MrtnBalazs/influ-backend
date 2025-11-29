@@ -17,11 +17,11 @@ public class AddUserHeadersFilter implements GlobalFilter {
                 .cast(JwtAuthenticationToken.class)
                 .flatMap(auth -> {
                     String email = auth.getTokenAttributes().get("email").toString();
-                    String username = auth.getTokenAttributes().get("preferred_username").toString();
+                    String userId = auth.getTokenAttributes().get("preferred_username").toString();
 
                     ServerHttpRequest mutated = exchange.getRequest().mutate()
-                            .header("X-User-Id", email)
-                            //.header("X-Username", email)
+                            .header("X-User-Email", email)
+                            .header("X-User-Id", userId)
                             .build();
 
                     return chain.filter(exchange.mutate().request(mutated).build());

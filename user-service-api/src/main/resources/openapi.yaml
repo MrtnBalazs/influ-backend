@@ -14,7 +14,13 @@ paths:
         - name: X-User-Id
           in: header
           required: true
-          description: Id of user provided by the gateway (email)
+          description: Id of user provided by the gateway (username)
+          schema:
+            type: string
+        - name: X-User-Email
+          in: header
+          required: true
+          description: Email of user provided by the gateway
           schema:
             type: string
       responses:
@@ -68,7 +74,7 @@ paths:
         - name: X-User-Id
           in: header
           required: true
-          description: Id of user provided by the gateway (email)
+          description: Id of user provided by the gateway
           schema:
             type: string
       responses:
