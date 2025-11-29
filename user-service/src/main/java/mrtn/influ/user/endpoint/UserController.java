@@ -21,7 +21,7 @@ public class UserController implements UserApi {
     @LogRequestResponse
     @Override
     public ResponseEntity<GetUserResponse> getUser(String xUserId){
-        GetUserResponse getUserResponse = userService.getUserByEmail(xUserId);
+        GetUserResponse getUserResponse = userService.getUserByName(xUserId);
         return ResponseEntity.ok(getUserResponse);
     }
 

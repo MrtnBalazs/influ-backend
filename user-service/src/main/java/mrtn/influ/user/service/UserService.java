@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.Objects;
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
 public class UserService {
@@ -27,7 +26,7 @@ public class UserService {
         this.userMapper = userMapper;
     }
 
-    public GetUserResponse getUserByEmail(String username) {
+    public GetUserResponse getUserByName(String username) {
         UserEntity userEntity = userRepository.findUserByUsername(username).orElseThrow(() -> new UserNotFoundException("Could not find user with the username: %s".formatted(username)));
         return userMapper.mapUserEntityToUserDto(userEntity);
     }
