@@ -39,7 +39,7 @@ public class PitchService {
 
     public void deletePitch(Integer id, String xUserId) {
         PitchEntity pitchEntity = pitchRepository.findById(id.longValue()).orElseThrow(() -> PITCH_NOT_FOUND.toException(id.toString()));
-        if(!pitchEntity.getOwnerId().equals(xUserId))
+        if(!pitchEntity.getOwnerId().equals(xUserId) && !pitchEntity.getCampaign().getOwnerId().equals(xUserId))
             ErrorCode.NOT_AUTHORISED_TO_DELETE.throwException(id.toString());
         pitchRepository.delete(pitchEntity);
     }
@@ -51,7 +51,7 @@ public class PitchService {
 
     public Pitch getPitch(String userId, Integer pitchId) {
         PitchEntity pitchEntity = pitchRepository.findById(pitchId).orElseThrow(() -> PITCH_NOT_FOUND.toException(pitchId.toString()));
-        if(!pitchEntity.getOwnerId().equals(userId)) {
+        if(!pitchEntity.getOwnerId().equals(userId) && !pitchEntity.getCampaign().getOwnerId().equals(userId)) {
             NOT_AUTHORISED_TO_GET.throwException(userId);
         }
         return pitchMapper.mapPitchEntity(pitchEntity);
