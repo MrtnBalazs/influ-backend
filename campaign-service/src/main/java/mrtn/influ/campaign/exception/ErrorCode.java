@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus;
 
 public enum ErrorCode {
     NOT_AUTHORISED_TO_DELETE(HttpStatus.UNAUTHORIZED, "Unauthorized to delete this resource, resource id: %s"),
+    INVALID_STATE_CHANGE(HttpStatus.BAD_REQUEST, "Invalid state change, resource id: %s, old state: %s, new state: %s"),
     NOT_AUTHORISED_TO_GET(HttpStatus.UNAUTHORIZED, "Unauthorized to get this resource, resource id: %s"),
     CAMPAIGN_NOT_FOUND(HttpStatus.BAD_REQUEST, "Could not find campaign for id: %s"),
     PITCH_NOT_FOUND(HttpStatus.BAD_REQUEST, "Could not find pitch for id: %s");

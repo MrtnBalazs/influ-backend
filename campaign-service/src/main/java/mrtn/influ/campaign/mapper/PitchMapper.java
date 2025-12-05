@@ -1,7 +1,9 @@
 package mrtn.influ.campaign.mapper;
 
 import mrtn.influ.campaign.dao.entity.CampaignEntity;
+import mrtn.influ.campaign.dao.entity.CampaignType;
 import mrtn.influ.campaign.dao.entity.PitchEntity;
+import mrtn.influ.campaign.dto.Campaign;
 import mrtn.influ.campaign.dto.CreatePitchRequest;
 import mrtn.influ.campaign.dto.Pitch;
 import org.springframework.stereotype.Component;
@@ -12,7 +14,11 @@ import java.util.List;
 public class PitchMapper {
 
     public Pitch mapPitchEntity(PitchEntity pitchEntity) {
-        Pitch pitch = new Pitch(pitchEntity.getId().intValue(), pitchEntity.getCampaign().getId().intValue(), pitchEntity.getOwnerId(), pitchEntity.getTitle());
+        Pitch pitch = new Pitch(pitchEntity.getId().intValue(),
+                pitchEntity.getCampaign().getId().intValue(),
+                pitchEntity.getOwnerId(),
+                pitchEntity.getTitle(),
+                Pitch.PitchStateEnum.valueOf(pitchEntity.getState().name()));
         pitch.setText(pitchEntity.getText());
         return pitch;
     }

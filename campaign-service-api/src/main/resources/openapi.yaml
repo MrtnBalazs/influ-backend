@@ -177,6 +177,73 @@ paths:
         '500':
           description: Server error
 
+#  /api/v1/campaigns/{id}/state:
+#    put:
+#      summary: Update campaign state
+#      operationId: updateCampaignState
+#      tags:
+#        - campaign
+#      parameters:
+#        - name: id
+#          in: path
+#          required: true
+#          description: Campaign ID
+#          schema:
+#            type: integer
+#        - name: X-User-Id
+#          in: header
+#          required: true
+#          description: Id of user provided by the gateway
+#          schema:
+#            type: string
+#      requestBody:
+#        required: true
+#        content:
+#          application/json:
+#            schema:
+#              $ref: '#/components/schemas/UpdateCampaignStateRequest'
+#      responses:
+#        '200':
+#          description: Campaign state updated
+#        '400':
+#          description: Request validation error
+#        '404':
+#          description: Campaign not found
+#        '500':
+#          description: Server error
+
+  /api/v1/campaigns/pitches/{id}/state:
+    put:
+      summary: Update pitch state
+      operationId: updatePitchState
+      tags:
+        - pitch
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: X-User-Id
+          in: header
+          required: true
+          description: Id of user provided by the gateway
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePitchStateRequest'
+      responses:
+        '200':
+          description: Pitch state updated
+        '400':
+          description: Request validation error
+        '500':
+          description: Server error
+
   /api/v1/campaigns/pitches/{id}:
     get:
       summary: Get pitch
@@ -241,6 +308,7 @@ components:
         - ownerId
         - title
         - campaignId
+        - pitchState
       properties:
         id:
           type: integer
@@ -252,6 +320,9 @@ components:
           type: string
         text:
           type: string
+        pitchState:
+          type: string
+          enum: [ PENDING, SELECTED, ACCEPTED, DONE, REJECTED ]
 
     Campaign:
       type: object
@@ -260,6 +331,7 @@ components:
         - ownerId
         - title
         - campaignType
+        - campaignState
       properties:
         id:
           type: integer
@@ -276,6 +348,9 @@ components:
           enum: [ PRODUCT-FOR-POST, PAID-POST, AFFILIATE ]
         fee:
           type: integer
+        campaignState:
+          type: string
+          enum: [ PENDING, PITCH-SELECTED, PITCH-ACCEPTED, DONE, FAILED ]
         pitchList:
           type: array
           items:
@@ -321,6 +396,24 @@ components:
           type: integer
         text:
           type: string
+
+    UpdatePitchStateRequest:
+      type: object
+      required:
+        - pitchState
+      properties:
+        pitchState:
+          type: string
+          enum: [ PENDING, SELECTED, ACCEPTED, DONE, REJECTED ]
+
+#    UpdateCampaignStateRequest:
+#      type: object
+#      required:
+#        - campaignState
+#      properties:
+#        campaignState:
+#          type: string
+#          enum: [ PENDING, PITCH-SELECTED, PITCH-ACCEPTED, DONE, FAILED ]
 
     CreateCampaignRequest:
       type: object

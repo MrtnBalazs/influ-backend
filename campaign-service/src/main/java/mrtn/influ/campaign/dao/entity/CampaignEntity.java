@@ -23,8 +23,10 @@ public class CampaignEntity {
     private String contentGuideline;
     @Column
     private Integer fee;
-    @Column
-    private String campaignType;
+    @Enumerated(EnumType.STRING)
+    private CampaignType campaignType;
+    @Enumerated(EnumType.STRING)
+    private CampaignState state;
     @OneToMany(mappedBy = "campaign", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<PitchEntity> pitches;
 
@@ -36,13 +38,14 @@ public class CampaignEntity {
 
     public CampaignEntity() {}
 
-    public CampaignEntity(String ownerId, String title, String description, String contentGuideline, Integer fee, String campaignType) {
+    public CampaignEntity(String ownerId, String title, String description, String contentGuideline, Integer fee, CampaignType campaignType) {
         this.ownerId = ownerId;
         this.title = title;
         this.description = description;
         this.contentGuideline = contentGuideline;
         this.fee = fee;
         this.campaignType = campaignType;
+        this.state = CampaignState.PENDING;
     }
 
     public Long getId() {
@@ -93,11 +96,11 @@ public class CampaignEntity {
         this.fee = fee;
     }
 
-    public String getCampaignType() {
+    public CampaignType getCampaignType() {
         return campaignType;
     }
 
-    public void setCampaignType(String campaignType) {
+    public void setCampaignType(CampaignType campaignType) {
         this.campaignType = campaignType;
     }
 
@@ -107,6 +110,14 @@ public class CampaignEntity {
 
     public void setPitches(List<PitchEntity> pitches) {
         this.pitches = pitches;
+    }
+
+    public CampaignState getState() {
+        return state;
+    }
+
+    public void setState(CampaignState state) {
+        this.state = state;
     }
 
     @Override
@@ -119,6 +130,7 @@ public class CampaignEntity {
                 ", contentGuideline='" + contentGuideline + '\'' +
                 ", fee=" + fee +
                 ", campaignType='" + campaignType + '\'' +
+                ", state=" + state +
                 ", pitches=" + pitches +
                 '}';
     }
@@ -127,11 +139,12 @@ public class CampaignEntity {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         CampaignEntity that = (CampaignEntity) o;
-        return Objects.equals(id, that.id) && Objects.equals(ownerId, that.ownerId) && Objects.equals(title, that.title) && Objects.equals(description, that.description) && Objects.equals(contentGuideline, that.contentGuideline) && Objects.equals(fee, that.fee) && Objects.equals(campaignType, that.campaignType) && Objects.equals(pitches, that.pitches);
+        return Objects.equals(id, that.id) && Objects.equals(ownerId, that.ownerId) && Objects.equals(title, that.title) && Objects.equals(description, that.description) && Objects.equals(contentGuideline, that.contentGuideline) && Objects.equals(fee, that.fee) && Objects.equals(campaignType, that.campaignType) && state == that.state && Objects.equals(pitches, that.pitches);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, ownerId, title, description, contentGuideline, fee, campaignType, pitches);
+        return Objects.hash(id, ownerId, title, description, contentGuideline, fee, campaignType, state, pitches);
     }
+
 }

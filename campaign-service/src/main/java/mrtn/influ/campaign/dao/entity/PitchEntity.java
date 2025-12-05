@@ -12,19 +12,17 @@ public class PitchEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
+    @Column
+    private String ownerId;
+    @Column
+    private String title;
+    @Column
+    private String text;
+    @Enumerated(EnumType.STRING)
+    private PitchState state;
     @ManyToOne
     @JoinColumn(name = "campaignId")
     private CampaignEntity campaign;
-
-    @Column
-    private String ownerId;
-
-    @Column
-    private String title;
-
-    @Column
-    private String text;
 
     public PitchEntity() {}
 
@@ -33,6 +31,7 @@ public class PitchEntity {
         this.ownerId = ownerId;
         this.title = title;
         this.text = text;
+        this.state = PitchState.PENDING;
     }
 
     @PreRemove
@@ -80,25 +79,36 @@ public class PitchEntity {
         this.text = text;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        PitchEntity that = (PitchEntity) o;
-        return Objects.equals(id, that.id) && Objects.equals(campaign, that.campaign) && Objects.equals(ownerId, that.ownerId) && Objects.equals(title, that.title) && Objects.equals(text, that.text);
+    public PitchState getState() {
+        return state;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, campaign, ownerId, title, text);
+    public void setState(PitchState state) {
+        this.state = state;
     }
 
     @Override
     public String toString() {
         return "PitchEntity{" +
                 "id=" + id +
-                ", creatorId='" + ownerId + '\'' +
+                ", ownerId='" + ownerId + '\'' +
                 ", title='" + title + '\'' +
                 ", text='" + text + '\'' +
+                ", state=" + state +
+                ", campaign=" + campaign +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        PitchEntity that = (PitchEntity) o;
+        return Objects.equals(id, that.id) && Objects.equals(ownerId, that.ownerId) && Objects.equals(title, that.title) && Objects.equals(text, that.text) && state == that.state && Objects.equals(campaign, that.campaign);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, ownerId, title, text, state, campaign);
+    }
+
 }

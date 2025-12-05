@@ -1,6 +1,7 @@
 package mrtn.influ.campaign.mapper;
 
 import mrtn.influ.campaign.dao.entity.CampaignEntity;
+import mrtn.influ.campaign.dao.entity.CampaignType;
 import mrtn.influ.campaign.dto.Campaign;
 import mrtn.influ.campaign.dto.CreateCampaignRequest;
 import mrtn.influ.campaign.dto.Pitch;
@@ -23,7 +24,9 @@ public class CampaignMapper {
                 campaignEntity.getId().intValue(),
                 campaignEntity.getOwnerId(),
                 campaignEntity.getTitle(),
-                Campaign.CampaignTypeEnum.valueOf(campaignEntity.getCampaignType()));
+                Campaign.CampaignTypeEnum.valueOf(campaignEntity.getCampaignType().toString()),
+                Campaign.CampaignStateEnum.valueOf(campaignEntity.getState().toString())
+        );
         campaign.setDescription(campaignEntity.getDescription());
         campaign.setContentGuideline(campaignEntity.getContentGuideline());
         campaign.setFee(campaignEntity.getFee());
@@ -38,7 +41,7 @@ public class CampaignMapper {
                 createCampaignRequest.getDescription(),
                 createCampaignRequest.getContentGuideline(),
                 createCampaignRequest.getFee(),
-                createCampaignRequest.getCampaignType().name()
+                CampaignType.valueOf(createCampaignRequest.getCampaignType().name())
         );
     }
 }

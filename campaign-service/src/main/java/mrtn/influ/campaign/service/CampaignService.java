@@ -1,6 +1,8 @@
 package mrtn.influ.campaign.service;
 
 import mrtn.influ.campaign.dao.entity.CampaignEntity;
+import mrtn.influ.campaign.dao.entity.CampaignState;
+import mrtn.influ.campaign.dao.entity.PitchState;
 import mrtn.influ.campaign.dao.repository.CampaignRepository;
 import mrtn.influ.campaign.dto.Campaign;
 import mrtn.influ.campaign.exception.ErrorCode;
@@ -43,6 +45,15 @@ public class CampaignService {
             campaignRepository.delete(campaignEntity);
         } else {
             ErrorCode.NOT_AUTHORISED_TO_DELETE.throwException(id.toString());
+        }
+    }
+
+    public void setCampaignStatusBaseOnPitchStateChange(PitchState pitchState, CampaignEntity campaign) {
+        switch (pitchState) {
+            case PitchState.PENDING -> campaign.setState(CampaignState.PENDING);
+            case PitchState.SELECTED -> campaign.setState(CampaignState.PITCH_SELECTED);
+            case PitchState.ACCEPTED -> campaign.setState(CampaignState.PITCH_ACCEPTED);
+            case PitchState.DONE -> campaign.setState(CampaignState.DONE);
         }
     }
 
