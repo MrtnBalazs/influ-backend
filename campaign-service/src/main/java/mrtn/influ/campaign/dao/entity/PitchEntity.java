@@ -34,11 +34,6 @@ public class PitchEntity {
         this.state = PitchState.PENDING;
     }
 
-    @PreRemove
-    private void removeFromCampaign() {
-        campaign.getPitches().remove(this);
-    }
-
     public Long getId() {
         return id;
     }
@@ -95,7 +90,6 @@ public class PitchEntity {
                 ", title='" + title + '\'' +
                 ", text='" + text + '\'' +
                 ", state=" + state +
-                ", campaign=" + campaign +
                 '}';
     }
 

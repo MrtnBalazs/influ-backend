@@ -5,5 +5,6 @@ public enum PitchState {
     SELECTED,
     ACCEPTED,
     DONE,
-    REJECTED
+    REJECTED,
+    ABORTED
 }

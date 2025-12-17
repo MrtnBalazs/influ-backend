@@ -322,7 +322,7 @@ components:
           type: string
         pitchState:
           type: string
-          enum: [ PENDING, SELECTED, ACCEPTED, DONE, REJECTED ]
+          enum: [ PENDING, SELECTED, ACCEPTED, DONE, REJECTED, ABORTED ]
 
     Campaign:
       type: object
@@ -350,7 +350,7 @@ components:
           type: integer
         campaignState:
           type: string
-          enum: [ PENDING, PITCH-SELECTED, PITCH-ACCEPTED, DONE, FAILED ]
+          enum: [ PENDING, PITCH-SELECTED, PITCH-ACCEPTED, DONE, FAILED, ABORTED ]
         pitchList:
           type: array
           items:
@@ -404,7 +404,7 @@ components:
       properties:
         pitchState:
           type: string
-          enum: [ PENDING, SELECTED, ACCEPTED, DONE, REJECTED ]
+          enum: [ PENDING, SELECTED, ACCEPTED, DONE, REJECTED, ABORTED ]
 
 #    UpdateCampaignStateRequest:
 #      type: object

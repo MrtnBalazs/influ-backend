@@ -27,7 +27,7 @@ public class CampaignEntity {
     private CampaignType campaignType;
     @Enumerated(EnumType.STRING)
     private CampaignState state;
-    @OneToMany(mappedBy = "campaign", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "campaign", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PitchEntity> pitches;
 
     // TODO favorited feature
