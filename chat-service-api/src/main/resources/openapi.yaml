@@ -1,0 +1,104 @@
+openapi: 3.1.0
+info:
+  title: Chat Service API
+  description: API for chat service
+  version: 1.0.0
+
+paths:
+  /api/v1/chat/{destinationId}:
+    get:
+      summary: Get chat between two users
+      operationId: getChat
+      tags:
+        - chat
+      parameters:
+        - name: X-User-Id
+          in: header
+          required: true
+          description: Id of user provided by the gateway
+          schema:
+            type: string
+        - name: destinationId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Chat between users
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetChatResponse'
+        '400':
+          description: Request validation error
+        '500':
+          description: Server error
+    post:
+      summary: Send chat message
+      operationId: sendChat
+      tags:
+        - chat
+      parameters:
+        - name: X-User-Id
+          in: header
+          required: true
+          description: Id of user provided by the gateway
+          schema:
+            type: string
+        - name: destinationId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SendChatRequest'
+      responses:
+        '201':
+          description: Chat is sent
+        '400':
+          description: Request validation error
+        '500':
+          description: Server error
+
+components:
+  schemas:
+
+    Chat:
+      type: object
+      required:
+        - id
+        - sourceId
+        - destinationId
+        - text
+      properties:
+        id:
+          type: integer
+        sourceId:
+          type: string
+        destinationId:
+          type: string
+        text:
+          type: string
+
+    GetChatResponse:
+      type: object
+      required:
+        - chatList
+      properties:
+        chatList:
+          type: array
+          items:
+            $ref: '#/components/schemas/Chat'
+
+    SendChatRequest:
+      type: object
+      required:
+        - text
+      properties:
+        text:
+          type: string

@@ -30,6 +30,17 @@ services:
     networks:
       - backend
 
+  redis:
+    image: "redis:8.4.0"  # official Redis image, specific stable tag
+    container_name: "redis"
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    command: [ "redis-server", "--save", "900", "1", "--appendonly", "yes" ]
+    # This enables RDB snapshots and AOF persistence
+
   keycloak:
     image: quay.io/keycloak/keycloak:26.4.1
     container_name: keycloak
@@ -69,9 +80,6 @@ services:
       - "8081:8081"
     environment:
       - SPRING_PROFILES_ACTIVE=docker
-    depends_on:
-      - eureka
-      - keycloak
     networks:
       - backend
 
@@ -101,9 +109,20 @@ services:
     networks:
       - backend
 
+  chat:
+    image: chat-service:latest
+    container_name: chat
+    ports:
+      - "8085:8085"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    networks:
+      - backend
+
 volumes:
   pgdata:
   pgadmin_data:
+  redis-data:
 
 networks:
   backend:

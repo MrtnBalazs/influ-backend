@@ -13,7 +13,7 @@ public class ApiGatewayApplication {
     }
 
     @Bean
-    public RouteLocator customRouteLocator(RouteLocatorBuilder builder) {
+    public RouteLocator customRouteLocator(RouteLocatorBuilder builder, WebSocketAuthHeaderFilter webSocketAuthHeaderFilter) {
         return builder.routes()
                 .route("campaign", r -> r
                         .path("/api/campaigns/**")
@@ -23,6 +23,13 @@ public class ApiGatewayApplication {
                         .path("/api/users/**")
                         .filters(f -> f.rewritePath("/api/users(?<segment>.*)", "/api/v1/users${segment}"))
                         .uri("lb://USER-SERVICE"))
+                .route("chat-ws", r -> r
+                        .path("/ws/chat/**")
+                        .filters(f -> f
+                                .filter(webSocketAuthHeaderFilter.apply(new WebSocketAuthHeaderFilter.Config()))
+                        )
+                        //.uri("lb:ws://CHAT-SERVICE"))
+                        .uri("ws://localhost:8085"))
                 .build();
     }
 }

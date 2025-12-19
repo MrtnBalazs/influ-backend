@@ -9,8 +9,8 @@
         <version>0.0.1</version>
     </parent>
 
-    <groupId>mrtn.influ.gateway</groupId>
-    <artifactId>gateway-service</artifactId>
+    <groupId>mrtn.influ.chat</groupId>
+    <artifactId>chat-service</artifactId>
     <version>0.0.1</version>
 
     <properties>
@@ -20,25 +20,24 @@
     </properties>
 
     <dependencies>
+
+<!--        <dependency>-->
+<!--            <groupId>mrtn.influ.chat</groupId>-->
+<!--            <artifactId>chat-service-api</artifactId>-->
+<!--            <version>0.0.1</version>-->
+<!--        </dependency>-->
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-gateway</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
+            <artifactId>spring-boot-starter-websocket</artifactId>
         </dependency>
     </dependencies>
 
@@ -50,7 +49,7 @@
                 <configuration>
                     <image>
                         <!-- name and tag -->
-                        <name>gateway-service:latest</name>
+                        <name>chat-service:latest</name>
                         <!-- Pin the builder image version -->
                         <builder>paketobuildpacks/builder-jammy-base:0.4.502</builder>
                         <!-- Ensure it does NOT pull new versions -->
