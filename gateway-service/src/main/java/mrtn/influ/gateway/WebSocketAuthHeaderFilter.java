@@ -15,22 +15,22 @@ public class WebSocketAuthHeaderFilter
     @Override
     public GatewayFilter apply(Config config) {
         return (exchange, chain) -> {
-            System.out.println("websocket filter activated");
-//            if (!"websocket".equalsIgnoreCase(exchange.getRequest().getURI().getScheme())
-//                    && !"ws".equalsIgnoreCase(exchange.getRequest().getURI().getScheme())) {
-//                return chain.filter(exchange);
+//            System.out.println("websocket filter activated");
+////            if (!"websocket".equalsIgnoreCase(exchange.getRequest().getURI().getScheme())
+////                    && !"ws".equalsIgnoreCase(exchange.getRequest().getURI().getScheme())) {
+////                return chain.filter(exchange);
+////            }
+//
+//            String token = exchange.getRequest().getQueryParams().getFirst("token");
+//            if (token != null) {
+//                return chain.filter(
+//                        exchange.mutate()
+//                                .request(r -> r.headers(h -> {
+//                                    h.set("Authorization", token);
+//                                }))
+//                                .build()
+//                );
 //            }
-
-            String token = exchange.getRequest().getQueryParams().getFirst("token");
-            if (token != null) {
-                return chain.filter(
-                        exchange.mutate()
-                                .request(r -> r.headers(h -> {
-                                    h.set("Authorization", token);
-                                }))
-                                .build()
-                );
-            }
 
             return chain.filter(exchange);
         };

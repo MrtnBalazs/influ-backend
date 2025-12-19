@@ -28,8 +28,8 @@ public class ApiGatewayApplication {
                         .filters(f -> f
                                 .filter(webSocketAuthHeaderFilter.apply(new WebSocketAuthHeaderFilter.Config()))
                         )
-                        //.uri("lb:ws://CHAT-SERVICE"))
-                        .uri("ws://localhost:8085"))
+                        .uri("lb:ws://CHAT-SERVICE"))
+                        //.uri("ws://localhost:8085"))
                 .build();
     }
 }
