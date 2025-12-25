@@ -5,3 +5,5 @@
 /campaign-service-api/target
 /user-service-api/target
 /user-service/target
+/chat-service/target
+/chat-service-api/target

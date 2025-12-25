@@ -26,7 +26,7 @@ public class UserHandshakeInterceptor implements HandshakeInterceptor {
             throw new IllegalStateException("Missing user header");
         }
 
-        attributes.put("user", userId);
+        attributes.put("userId", userId);
         return true;
     }
 

@@ -9,13 +9,14 @@ import java.util.Map;
 
 public class UserHandshakeHandler extends DefaultHandshakeHandler {
 
+    // Set principal manually to be able to use stomp private messaging
     @Override
     protected Principal determineUser(
             ServerHttpRequest request,
             WebSocketHandler wsHandler,
             Map<String, Object> attributes
     ) {
-        String userId = (String) attributes.get("user");
+        String userId = (String) attributes.get("userId");
 
         if (userId == null) {
             return null;

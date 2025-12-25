@@ -21,11 +21,11 @@
 
     <dependencies>
 
-<!--        <dependency>-->
-<!--            <groupId>mrtn.influ.chat</groupId>-->
-<!--            <artifactId>chat-service-api</artifactId>-->
-<!--            <version>0.0.1</version>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>mrtn.influ.chat</groupId>
+            <artifactId>chat-service-api</artifactId>
+            <version>0.0.1</version>
+        </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>

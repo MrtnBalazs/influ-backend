@@ -10,3 +10,12 @@ management:
     web:
       exposure:
         include: health,info,beans
+
+logging:
+  level:
+    com:
+      netflix:
+        discovery: OFF
+eureka:
+  client:
+    enabled: false
